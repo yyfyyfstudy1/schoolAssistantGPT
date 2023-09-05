@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "893031848385",
+    "project_id": "testproject-fd953",
+    "storage_bucket": "testproject-fd953.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:893031848385:android:509729662f366fd1a47740",
+        "android_client_info": {
+          "package_name": "comp5216.sydney.edu.au.learn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "893031848385-hkrudplaimr0tr5m21m5qiutrut42k5g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAovvY7EXAMVHT2qqM9ZXy6e-fx2zoflYk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "893031848385-hkrudplaimr0tr5m21m5qiutrut42k5g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
