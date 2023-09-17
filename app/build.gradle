@@ -51,7 +51,8 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.6.0'// Replace with the latest version
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.8.20"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.20"
-    implementation 'com.squareup.picasso:picasso:2.71828' // 添加Picasso依赖
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.alibaba:fastjson:1.2.56'     // fast json
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

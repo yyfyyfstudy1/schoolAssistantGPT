@@ -9,4 +9,23 @@
     <color name="textColorPrimary">#000000</color> <!-- 黑色 -->
     <color name="textColorSecondary">#757575</color> <!-- 灰色 -->
     <color name="buttonBackground">#E0E0E0</color> <!-- 按钮背景色 -->
+    <color name="backgroundGreen">#FDFFF9</color>
+    <color name="lightGreen">#9A437D28</color>
+    <color name="generalGreen">#008005</color>
+    <color name="darkGreen">#437D28</color>
+    <color name="borderGray">#D6D6D6</color>
+    <color name="lightwhite">#F2FEED</color>
+    <color name="withoutSelect">#B9C1D9</color>
+    <color name="popWindowsBackground">#FFFFFF</color>
+
+    <color name="cardViewColorGray">#3B3943</color>
+    <color name="cardViewColorPurple">#725AD1</color>
+    <color name="cardViewColorBlue">#29A4EA</color>
+    <color name="cardViewColorRed">#B63A5F</color>
+
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
 </resources>

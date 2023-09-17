@@ -1,76 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:id="@+id/login_container">
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/ic_launcher_foreground"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp" />
-    <EditText
-        android:id="@+id/etUsername"
+    tools:context=".MainActivity">
+    <FrameLayout
+        android:id="@+id/fl_header"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:hint="Username"
-        android:inputType="text"
-        android:maxLines="1"
-        android:padding="5dp"
-       />
+        android:layout_height="wrap_content" />
 
-    <EditText
-        android:id="@+id/etPassword"
+    <!-- 添加一个包含底部导航栏的外部布局 -->
+    <FrameLayout
+        android:id="@+id/fl_container"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:maxLines="1"
-        android:padding="5dp"
-       />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/fl_header"
+        android:layout_marginTop="0dp" />
 
     <LinearLayout
-        android:id="@+id/buttonView"
+        android:id="@+id/ll_bottom_navigation_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp">
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+        <!-- 上方边框 -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/borderGray" />
 
-        <Button
-            android:id="@+id/btnLogin"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login"
-            android:background="@drawable/bg_1"/>
-        <Button
-            android:id="@+id/register"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="register"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/bg_right"
+            android:background="@color/white"
+            app:menu="@menu/bottom_navigation_menu"
+            app:itemTextColor="@color/textColorSecondary"
+            app:itemIconTint="@drawable/bottom_nav_icon_color_selector"
             />
-
-
-
-
-
     </LinearLayout>
-
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Don't have an account? Sign up here."
-        android:gravity="center"
-        android:textColor="@android:color/darker_gray" />
-
-</LinearLayout>
+</RelativeLayout>
