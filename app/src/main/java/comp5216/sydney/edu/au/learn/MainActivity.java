@@ -23,10 +23,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        headerFragment = new HeaderFragment();
-        // fragment添加到Activity中
-        getSupportFragmentManager().beginTransaction().add(R.id.fl_header, headerFragment, "header").commitAllowingStateLoss();
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
@@ -46,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
 
-        // 默认加载一个Fragment
+        // load a fragment by default
         loadFragment(new HomeFragment());
     }
 

@@ -106,7 +106,8 @@ public class LoginActivity extends AppCompatActivity {
                 password.setError("password can`t be null");
             }
         } else if (userNameUse.isEmpty()) {
-            userName.setError("Email can`t be empty");
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//            userName.setError("Email can`t be empty");
         }else {
             userName.setError("Email is not valid");
         }

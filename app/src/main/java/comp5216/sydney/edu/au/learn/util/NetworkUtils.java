@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
@@ -16,17 +17,25 @@ import okhttp3.RequestBody;
 public class NetworkUtils {
 
     private static final String TAG = "NetworkUtils";
-    // replace with your computer ip address
-    public static final String apiURL = "http://10.19.205.223:8082";
-    private static OkHttpClient client = new OkHttpClient();
 
-    public static void postJsonRequest(Object object, String url, Callback callback) {
-        String jsonBody = JSON.toJSONString(object);
+    public static final String apiURL = "https://api.openai.com/v1/chat/completions";
+    public static final String apiKey = "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";
+    // 设置超时时间
+    private static final OkHttpClient client = new OkHttpClient.Builder()
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
+            .build();
+
+    public static void postJsonRequest(String JsonText, Callback callback) {
+
+
         MediaType JSON_MEDIA_TYPE = MediaType.parse("application/json; charset=utf-8");
-        RequestBody requestBody = RequestBody.create(JSON_MEDIA_TYPE, jsonBody);
-        String useUrl = apiURL + url;
+        RequestBody requestBody = RequestBody.create(JSON_MEDIA_TYPE, JsonText);
+        String useUrl = apiURL;
         Request request = new Request.Builder()
                 .url(useUrl)
+                .addHeader("Authorization", "Bearer " + apiKey)
                 .post(requestBody)
                 .build();
 

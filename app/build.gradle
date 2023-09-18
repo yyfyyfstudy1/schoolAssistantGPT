@@ -53,6 +53,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.20"
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.alibaba:fastjson:1.2.56'     // fast json
+    implementation 'com.squareup.okhttp3:okhttp:4.11.0'  //okhttp
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
