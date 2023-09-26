@@ -1,12 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
-    <TextView
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/toggleGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:selectionRequired="true"
+        app:singleSelection="true">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/emailButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@drawable/button_color_selector"
+            android:text="Email"
+            app:cornerRadius="18dp" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/messageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@drawable/button_color_selector"
+            android:text="Message"
+            app:cornerRadius="18dp" />
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <EditText
+        android:id="@+id/thoughtEditText"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="30sp"
-        android:text="this is email"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@null"
+        android:gravity="start|top"
+        android:hint="Write down your thought..."
+        android:inputType="textMultiLine"
+        android:lines="15"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp" />
+    <!-- 外层的 LinearLayout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.9"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="toggleLayout1"
+                app:cardCornerRadius="0dp">
+                <!-- CardView content -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:text="preference"
+                    android:textSize="20sp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- collapse content -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/expandableLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/borderGray"
+                android:visibility="gone" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="toggleLayout2"
+                app:cardCornerRadius="0dp">
+                <!-- CardView的内容 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:text="History"
+                    android:textSize="20sp" />
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <!-- collapse content -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/expandableLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/borderGray"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/composeEmailBtn"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.15"
+            android:backgroundTint="@color/black"
+            android:text="Compose"
+            app:cornerRadius="0dp" />
+    </LinearLayout>
 </LinearLayout>

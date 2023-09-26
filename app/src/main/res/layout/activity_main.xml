@@ -5,10 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-    <FrameLayout
-        android:id="@+id/fl_header"
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/simple_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="?attr/actionBarSize"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
+        android:background="@color/white"
+        app:titleTextColor="@color/black">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Home"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <!-- 添加一个包含底部导航栏的外部布局 -->
     <FrameLayout
@@ -16,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/ll_bottom_navigation_container"
-        android:layout_below="@+id/fl_header"
+        android:layout_below="@+id/simple_toolbar"
         android:layout_marginTop="0dp" />
 
     <LinearLayout

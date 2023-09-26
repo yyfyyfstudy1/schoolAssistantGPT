@@ -3,7 +3,9 @@ package comp5216.sydney.edu.au.learn;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -17,6 +19,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import comp5216.sydney.edu.au.learn.util.toastUtil;
 
 public class LoginActivity extends AppCompatActivity {
@@ -83,7 +87,25 @@ public class LoginActivity extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                             @Override
                             public void onSuccess(AuthResult authResult) {
+
                                 toastUtil.showToast(LoginActivity.this, ok);
+
+                                // get the user information
+                                FirebaseUser user = auth.getCurrentUser();
+
+                                if (user != null) {
+                                    String uid = user.getUid(); // get User UID
+
+                                    // get SharedPreferences instance
+                                    SharedPreferences sharedPreferences = getSharedPreferences("comp5216", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putString("userId", uid);
+
+                                    editor.apply();
+
+                                }
+
+
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                 finish();
                             }
@@ -106,8 +128,8 @@ public class LoginActivity extends AppCompatActivity {
                 password.setError("password can`t be null");
             }
         } else if (userNameUse.isEmpty()) {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//            userName.setError("Email can`t be empty");
+//            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            userName.setError("Email can`t be empty");
         }else {
             userName.setError("Email is not valid");
         }
