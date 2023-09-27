@@ -30,7 +30,9 @@ android {
     buildFeatures {
         viewBinding true
     }
-
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+    }
 }
 
 dependencies {
@@ -55,6 +57,8 @@ dependencies {
     implementation 'com.alibaba:fastjson:1.2.56'     // fast json
     implementation 'com.squareup.okhttp3:okhttp:4.11.0'  //okhttp
     implementation 'org.jsoup:jsoup:1.14.3'
+    implementation 'es.voghdev.pdfviewpager:library:1.1.2' // show pdf
+    implementation 'com.itextpdf:itext7-core:7.1.16'  // transfer pdf to text
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
