@@ -13,15 +13,30 @@
         android:src="@drawable/ic_launcher_foreground"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/promptEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Email" />
+
     <EditText
         android:id="@+id/etUsername"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:hint="Username"
+        android:hint="user@email.com"
         android:inputType="text"
         android:maxLines="1"
         android:padding="5dp"
        />
+
+    <TextView
+        android:id="@+id/promptPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Password" />
 
     <EditText
         android:id="@+id/etPassword"
@@ -36,7 +51,7 @@
     <LinearLayout
         android:id="@+id/buttonView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:orientation="horizontal"
         android:layout_marginTop="20dp">
 
@@ -64,7 +79,7 @@
     </LinearLayout>
 
 
-
+<!--TODO: sign up button in the text-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

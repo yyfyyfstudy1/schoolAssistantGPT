@@ -18,6 +18,7 @@ public class RegisterActivity extends AppCompatActivity {
     public EditText email;
 
     public EditText password;
+    public EditText passwordConfirm;
 
     private Button registerBtn;
 
@@ -27,9 +28,10 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        // 找到控件
+        // match the widgets
         email = findViewById(R.id.etEmail);
         password = findViewById(R.id.etPassword);
+        passwordConfirm = findViewById(R.id.repeatPassword);
         registerBtn = findViewById(R.id.registerBtn);
 
         registerBtn.setOnClickListener(this::registerClick);
@@ -37,17 +39,26 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+    // validate all fields on clicking register btn
     private void registerClick(View view) {
-        String emailUse = email.getText().toString();
-        String passwordUse = password.getText().toString();
+        String emailUse = email.getText().toString().trim();
+        String passwordUse = password.getText().toString().trim();
+        String passwordConfirmUse = passwordConfirm.getText().toString().trim();
 
-        if (emailUse.isEmpty() || passwordUse.isEmpty()) {
-            Toast.makeText(RegisterActivity.this, "please fill the full information", Toast.LENGTH_SHORT).show();
+        boolean isEmailEmpty = emailUse.isEmpty();
+        boolean isPasswordEmpty = passwordUse.isEmpty();
+        boolean isPasswordMatch = passwordUse.equals(passwordConfirmUse);
+
+        if (isEmailEmpty) {
+            Toast.makeText(RegisterActivity.this, "Email is required", Toast.LENGTH_SHORT).show();
+        } else if (isPasswordEmpty) {
+            Toast.makeText(RegisterActivity.this, "Password is required", Toast.LENGTH_SHORT).show();
+        } else if (!isPasswordMatch) {
+            Toast.makeText(RegisterActivity.this, "Password and confirmation do not match", Toast.LENGTH_SHORT).show();
         } else {
             registerUser(emailUse, passwordUse);
         }
     }
-
 
     private void registerUser(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -60,9 +71,13 @@ public class RegisterActivity extends AppCompatActivity {
                     } else {
                         // register failed
                         if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                            Toast.makeText(RegisterActivity.this, "This email has been registered", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this,
+                                    "Email is already registered.\nPlease sign in or use a new address.",
+                                    Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(RegisterActivity.this, "register failed，please trt later", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this,
+                                    "Registration failed. \nPlease try again later.",
+                                    Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -76,15 +91,17 @@ public class RegisterActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
 
                             AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                            builder.setTitle("Successful !!")
-                                    .setMessage("The verified Email has been send")
-                                    .setPositiveButton("Back", (dialogInterface, i) -> {
+                            builder.setTitle("Account Created Successfully!")
+                                    .setMessage("A verification email has been sent. Please verify before login.")
+                                    .setPositiveButton("OK", (dialogInterface, i) -> {
 
                                     });
 
                             builder.create().show();
                         } else {
-                            Toast.makeText(RegisterActivity.this, "can`t send email, please try later", Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterActivity.this,
+                                    "Can't send verification email.\nPlease try again later.",
+                                    Toast.LENGTH_LONG).show();
                         }
                     });
         }
