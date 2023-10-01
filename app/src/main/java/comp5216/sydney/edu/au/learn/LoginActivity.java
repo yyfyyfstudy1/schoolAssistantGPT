@@ -72,13 +72,14 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void toRegisterClick(View view){
         startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+        // TODO: StartActivityForResult?
     }
     private void onClick(View view){
        String userNameUse = userName.getText().toString();
        String passwordUse = password.getText().toString();
 
        // set toast
-        String ok = "login successed";
+        String ok = "login succeed";
         String fail = "wrong password or username";
 
         if(!userNameUse.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(userNameUse).matches()){

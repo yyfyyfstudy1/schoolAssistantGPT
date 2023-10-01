@@ -98,6 +98,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     });
 
                             builder.create().show();
+                            // TODO: should return to log in page after success registration
                         } else {
                             Toast.makeText(RegisterActivity.this,
                                     "Can't send verification email.\nPlease try again later.",
