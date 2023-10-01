@@ -14,26 +14,52 @@
         android:layout_marginTop="32dp" />
 
 
+    <TextView
+        android:id="@+id/promptEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Email" />
 
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Enter email" />
+
+    <TextView
+        android:id="@+id/promptPassword"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:hint="Email" />
+        android:text="Password" />
 
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Ender password"
+        android:inputType="textPassword" />
+
+    <TextView
+        android:id="@+id/promptConfirm"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:hint="password"
+        android:text="Confirm Password" />
+
+    <EditText
+        android:id="@+id/repeatPassword"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Enter password"
         android:inputType="textPassword" />
+
 
     <Button
         android:id="@+id/registerBtn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:text="Register" />
 
