@@ -76,6 +76,9 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
         // TODO: StartActivityForResult?
     }
+
+    // TODO: forgotPasswordClick
+
     private void onClick(View view){
        String userNameUse = userName.getText().toString();
        String passwordUse = password.getText().toString();
@@ -90,8 +93,6 @@ public class LoginActivity extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                             @Override
                             public void onSuccess(AuthResult authResult) {
-
-                                toastUtil.showToast(LoginActivity.this, ok);
 
                                 // get the user information
                                 FirebaseUser user = auth.getCurrentUser();
@@ -108,6 +109,8 @@ public class LoginActivity extends AppCompatActivity {
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
                                         editor.putString("userId", uid);
                                         editor.apply();
+
+                                        toastUtil.showToast(LoginActivity.this, ok);
 
                                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                         finish();
