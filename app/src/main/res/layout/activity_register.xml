@@ -15,10 +15,23 @@
 
 
     <TextView
-        android:id="@+id/promptEmail"
+        android:id="@+id/promptName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:text="User Name" />
+
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Enter username" />
+
+    <TextView
+        android:id="@+id/promptEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Email" />
 
     <EditText

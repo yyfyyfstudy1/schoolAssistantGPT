@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -95,20 +97,26 @@ public class LoginActivity extends AppCompatActivity {
                                 FirebaseUser user = auth.getCurrentUser();
 
                                 if (user != null) {
-                                    String uid = user.getUid(); // get User UID
+                                    if (user.isEmailVerified()) { // Check if the email is verified
+                                        toastUtil.showToast(LoginActivity.this, ok);
 
-                                    // get SharedPreferences instance
-                                    SharedPreferences sharedPreferences = getSharedPreferences("comp5216", Context.MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    editor.putString("userId", uid);
+                                        // get the user information UID
+                                        String uid = user.getUid();
 
-                                    editor.apply();
+                                        // get SharedPreferences instance
+                                        SharedPreferences sharedPreferences = getSharedPreferences("comp5216", Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        editor.putString("userId", uid);
+                                        editor.apply();
+
+                                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                        finish();
+                                    } else {
+                                        // Email has not been verified, show a message to the user
+                                        Toast.makeText(LoginActivity.this, "Please verify your email first.", Toast.LENGTH_SHORT).show();
+                                    }
 
                                 }
-
-
-                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                finish();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -126,11 +134,11 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         });
             }else {
-                password.setError("password can`t be null");
+                password.setError("password can't be null");
             }
         } else if (userNameUse.isEmpty()) {
 //            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            userName.setError("Email can`t be empty");
+            userName.setError("Email can't be empty");
         }else {
             userName.setError("Email is not valid");
         }
