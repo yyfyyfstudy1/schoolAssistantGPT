@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                         loadFragment(new HomeFragment(), userId);
                         return true;
                     case R.id.navigation_email:
-                        toolbar_title.setText("General EMail");
+                        toolbar_title.setText("General Email");
                         loadFragment(new EmailFragment(), userId);
                         return true;
                     case R.id.navigation_lecture:
