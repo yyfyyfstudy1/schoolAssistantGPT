@@ -18,7 +18,7 @@ import comp5216.sydney.edu.au.learn.Common.HeaderFragment;
 import comp5216.sydney.edu.au.learn.fragment.HomeFragment;
 import comp5216.sydney.edu.au.learn.fragment.EmailFragment;
 import comp5216.sydney.edu.au.learn.fragment.LectureFragment;
-import comp5216.sydney.edu.au.learn.fragment.profileFragment;
+import comp5216.sydney.edu.au.learn.fragment.TimeTableFragment;
 
 public class MainActivity extends AppCompatActivity {
     @SuppressLint("NonConstantResourceId")
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.navigation_profile:
                         toolbar_title.setText("My Profile");
-                        loadFragment(new profileFragment(), userId);
+                        loadFragment(new TimeTableFragment(), userId);
                         return true;
                 }
                 return false;
