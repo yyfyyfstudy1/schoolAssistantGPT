@@ -21,127 +21,87 @@ import androidx.fragment.app.Fragment;
 
 import com.alibaba.fastjson.JSONObject;
 
-import org.jsoup.Jsoup;
-
 import java.io.IOException;
 
 import comp5216.sydney.edu.au.learn.R;
 import comp5216.sydney.edu.au.learn.util.FireBaseUtil;
 import comp5216.sydney.edu.au.learn.util.NetworkUtils;
-import comp5216.sydney.edu.au.learn.util.toastUtil;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
+public class TimeTableResponseFragment extends Fragment {
+    private View rootView;
+    private String userId;
 
-public class gptResponseFragment extends Fragment {
     private WebView gptResponseWebView;
     private ImageButton senToGptBtn;
-
-    private String userEditContent;
-    private String emailHistoryContent;
-    private String userId;
     private String gptResponse;
     private EditText myEditText;
-
     private ProgressBar progressBar;
     private TextView loadingText;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_gptresponse, container, false);
-        return view;
+        rootView = inflater.inflate(R.layout.fragment_timetableresponse, container, false);
+
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            userId = arguments.getString("userId");
+        }
+
+        return rootView;
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // get parameter
-        Bundle args = getArguments();
-
         // bind the component
         gptResponseWebView = view.findViewById(R.id.gptResponseWebView);
         senToGptBtn = view.findViewById(R.id.senToGptBtn);
         myEditText = view.findViewById(R.id.myEditText);
         progressBar = view.findViewById(R.id.progressBar);
         loadingText = view.findViewById(R.id.loadingText);
-        // before get the gpt first response, the button can`t click
-        senToGptBtn.setEnabled(false);
 
         WebSettings webSettings = gptResponseWebView.getSettings();
         webSettings.setJavaScriptEnabled(false);
 
-        if (args != null) {
-            userEditContent = args.getString("userEditContent");
-            userId = args.getString("userId");
-            emailHistoryContent = args.getString("emailHistoryContent");
+        senToGptBtn.setOnClickListener(this::getGptResponseBasedOnTimeTable);
 
-            if (emailHistoryContent == null){
-                // call the chatGpt api
-                callGptForResponse(userEditContent);
-            }else {
-                gptResponse = emailHistoryContent;
-                showLoading(false);
-                senToGptBtn.setEnabled(true);
-                setEmailHistoryContent(emailHistoryContent);
-            }
-
-
-        }
-
-        senToGptBtn.setOnClickListener(this::fixContentWithGpt);
     }
 
-    private void setEmailHistoryContent(String emailHistoryContent) {
-        gptResponseWebView.loadData(emailHistoryContent, "text/html", "UTF-8");
-    }
+    private void getGptResponseBasedOnTimeTable(View view){
 
-
-    private void fixContentWithGpt(View view){
-        showLoading(true);  // show loading bar
-        String fixText = myEditText.getText().toString();
-        StringBuilder requestText = new StringBuilder();
-
-        requestText.append("my original email is: [ ");
-
-        // convert the html content to text
-        String plainText = Jsoup.parse(gptResponse).text();
-        requestText.append(plainText);
-
-        requestText.append("]. ");
-
-        requestText.append("Help me fix the email content according to my under requirement." +
-                "In order to preserve the formatting of the email, strictly return an HTML style reply (needs to have recognizable html tags). Don`t say other things, I only need the fixed content of the email. ");
-
-        requestText.append(fixText);
-
-        myEditText.setText("");
-
-        String requestBody = "{\"messages\": [{\"role\": \"system\", \"content\": \"You are a helpful assistant.\"}, {\"role\": \"system\", \"content\": \"[]\"}, {\"role\": \"user\", \"content\": \"" + requestText + "\"}], \"model\": \"gpt-3.5-turbo\"}";
-        NetworkUtils.postJsonRequest(requestBody, new Callback() {
+        // get the summary timetable information from the database
+        FireBaseUtil.fetchAndFormatSchedule(userId, new FireBaseUtil.FirebaseFetchCallback() {
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                showLoading(false);  // hidden loading bar
-                handleResponse(response);
+            public void onSuccess(String formattedData) {
+                // Use the formatted data
+                System.out.println("！！！！！！！！！！" + formattedData);
+                callGptForResponse(formattedData);
             }
 
             @Override
-            public void onFailure(Call call, IOException e) {
-                showLoading(false);  // hidden loading bar
-                handleFailure(e);
+            public void onFailure(Exception e) {
+                // Handle the error
+                System.out.println(e);
             }
         });
 
-
     }
 
-    private void callGptForResponse(String inputText){
+    private void callGptForResponse(String formattedData){
+
+        String userInput = myEditText.getText().toString();
+
         showLoading(true);  // show loading bar
         StringBuilder requestText = new StringBuilder();
-        requestText.append("Convert the following request into a well-formatted email. In order to preserve the formatting of the email, strictly return an HTML style reply (needs to have recognizable html tags), Don`t say other things,  I only need the content of the email.");
-        requestText.append(inputText);
+        requestText.append("This is my timetable [ ");
+        requestText.append(formattedData);
+        requestText.append("]. Now please answer my following question based on this timetable. strictly return an HTML style reply (needs to have recognizable html tags), Do not reply with anything other than html style content");
+        requestText.append(userInput);
+
         String requestBody = "{\"messages\": [{\"role\": \"system\", \"content\": \"You are a helpful assistant.\"}, {\"role\": \"system\", \"content\": \"[clear context]\"}, {\"role\": \"user\", \"content\": \"" + requestText + "\"}], \"model\": \"gpt-3.5-turbo\"}";
         NetworkUtils.postJsonRequest(requestBody, new Callback() {
             @Override
@@ -156,7 +116,6 @@ public class gptResponseFragment extends Fragment {
                 handleFailure(e);
             }
         });
-
 
     }
 
@@ -183,22 +142,9 @@ public class gptResponseFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        senToGptBtn.setEnabled(true);
                         // run this in the main tread
-                        Log.e(TAG, "Load email content！！！！！！！！！！！！！！！！: " );
+                        Log.e(TAG, "Load timetable response content！！！！！！！！！！！！！！！！: " );
                         gptResponseWebView.loadData(unescapedHtml, "text/html", "UTF-8");
-
-                        FireBaseUtil.insertEmailHistory(userId, unescapedHtml, new FireBaseUtil.EmailHistoryInsertionCallback() {
-                            @Override
-                            public void onInsertionCompleted(boolean success) {
-                                if (success) {
-                                    // insert successful
-                                } else {
-                                    // insert failed
-                                }
-                            }
-                        });
-
 
                     }
                 });
@@ -207,6 +153,15 @@ public class gptResponseFragment extends Fragment {
 
         }
     }
+
+
+
+
+    private void handleFailure(IOException e) {
+        Log.e(TAG, "Exception: " + e);
+    }
+
+
     private void showLoading(final boolean show) {
         if(getActivity() != null) {
             getActivity().runOnUiThread(new Runnable() {
@@ -217,8 +172,5 @@ public class gptResponseFragment extends Fragment {
                 }
             });
         }
-    }
-    private void handleFailure(IOException e) {
-        Log.e(TAG, "Exception: " + e);
     }
 }

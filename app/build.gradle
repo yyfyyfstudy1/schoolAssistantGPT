@@ -60,6 +60,12 @@ dependencies {
     implementation 'es.voghdev.pdfviewpager:library:1.1.2' // show pdf
     implementation 'com.itextpdf:itext7-core:7.1.16'  // transfer pdf to text
 
+    // The compose calendar library
+    implementation 'com.kizitonwose.calendar:view:2.0.1'
+    implementation 'com.applandeo:material-calendar-view:1.7.0'
+
+
+
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'

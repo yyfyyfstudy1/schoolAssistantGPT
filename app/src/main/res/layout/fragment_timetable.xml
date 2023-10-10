@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.applandeo.materialcalendarview.CalendarView
+            android:id="@+id/calendarView"
+            app:type="one_day_picker"
+            app:eventsEnabled="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:highlightedDaysLabelsColor="@color/red" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/dateListRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/addEventBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/red"
+            android:text="Add one event"
+            app:cornerRadius="0dp" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/composeTimeTableBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
+            android:text="Finished edit"
+            app:cornerRadius="0dp" />
+    </LinearLayout>
+</ScrollView>

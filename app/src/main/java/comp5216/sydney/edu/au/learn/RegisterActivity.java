@@ -1,9 +1,12 @@
 package comp5216.sydney.edu.au.learn;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +17,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
+
+import comp5216.sydney.edu.au.learn.util.FireBaseUtil;
 
 public class RegisterActivity extends AppCompatActivity {
     public EditText username;
@@ -71,6 +76,15 @@ public class RegisterActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser user = mAuth.getCurrentUser();
+
+                        // insert the user to firebase database
+                        FireBaseUtil.insertNewUser(user.getUid(), email, displayName, success -> {
+                            if (success) {
+                                Log.d(TAG, "User data insertion was successful");
+                            } else {
+                                Log.d(TAG, "Failed to insert user data");
+                            }
+                        });
 
                         // Update the user's profile with the username
                         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
