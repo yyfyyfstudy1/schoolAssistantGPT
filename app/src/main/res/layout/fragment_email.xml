@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@drawable/button_color_selector"
             android:text="Email"
+            android:textColor="@color/secondary"
             app:cornerRadius="18dp" />
 
 
@@ -29,6 +30,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@drawable/button_color_selector"
             android:text="Message"
+            android:textColor="@color/secondary"
             app:cornerRadius="18dp" />
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
@@ -123,10 +125,9 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/composeEmailBtn"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.15"
-            android:backgroundTint="@color/black"
-            android:text="Compose"
-            app:cornerRadius="0dp" />
+            android:layout_margin="16dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/primary"
+            android:text="Compose" />
     </LinearLayout>
 </LinearLayout>

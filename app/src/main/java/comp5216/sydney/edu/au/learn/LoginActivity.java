@@ -19,6 +19,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,10 +30,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button loginBtn;
     private Button registerBtn;
-    private EditText userName;
-    private EditText password;
+    private TextInputEditText userName;
+    private TextInputEditText password;
     private FirebaseAuth auth;
-    private LinearLayout login_container;
+//    private LinearLayout login_container;
 
     private View imageView;
     @Override
@@ -40,14 +41,17 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        loginBtn = findViewById(R.id.btnLogin);
+        imageView = findViewById(R.id.imageView);
         userName = findViewById(R.id.etUsername);
         password = findViewById(R.id.etPassword);
-        login_container = findViewById(R.id.buttonView);
-        imageView = findViewById(R.id.imageView);
-        registerBtn = findViewById(R.id.register);
+//        login_container = findViewById(R.id.buttonView);
+        loginBtn = findViewById(R.id.btnLogin);
+        registerBtn = findViewById(R.id.btnRegister);
         // initial page，hidden form
-        login_container.setVisibility(View.GONE);
+//        login_container.setVisibility(View.GONE);
+
+        loginBtn.setVisibility(View.GONE);
+        registerBtn.setVisibility(View.GONE);
 
         // start anime
         fadeInLogo();
@@ -66,7 +70,9 @@ public class LoginActivity extends AppCompatActivity {
         fadeIn.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                login_container.setVisibility(View.VISIBLE);
+//                login_container.setVisibility(View.VISIBLE);
+                loginBtn.setVisibility(View.VISIBLE);
+                registerBtn.setVisibility(View.VISIBLE);
             }
         });
 
@@ -74,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void toRegisterClick(View view){
         startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-        // TODO: StartActivityForResult?
+        // TODO: StartActivityForResult? so that user can switch back to log in page
     }
 
     // TODO: forgotPasswordClick

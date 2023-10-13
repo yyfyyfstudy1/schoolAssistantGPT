@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"> <!-- Set the background color to white -->
 
     <!-- Profile Image -->
     <ImageView
@@ -20,6 +21,7 @@
         android:text="User Name"
         android:layout_below="@id/profile_image"
         android:textSize="18sp"
+        android:textColor="@color/black"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp" />
 
@@ -31,6 +33,7 @@
         android:text="user@email.com"
         android:textSize="16sp"
         android:layout_below="@id/profileName"
+        android:textColor="@color/disabledText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp" />
 
@@ -39,21 +42,25 @@
         android:id="@+id/notification_preferences_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Notification Preference"
+        android:text="Notification Preferences"
         android:layout_below="@id/profileEmail"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp" />
+        android:layout_marginTop="32dp"
+        android:backgroundTint="@color/secondaryLight"
+        android:textColor="@color/secondary" /> <!-- Set button text color to white -->
 
     <!-- Account Setting -->
-    <!--  Change password & delete account -->
+    <!-- Change password & delete account -->
     <Button
         android:id="@+id/change_password_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Account Setting"
+        android:text="Account Settings"
         android:layout_below="@id/notification_preferences_button"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/secondaryLight"
+        android:textColor="@color/secondary" /> <!-- Set button text color to white -->
 
     <!-- Log Out Button -->
     <Button
@@ -63,6 +70,9 @@
         android:text="Log Out"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="64dp" />
+        android:layout_marginBottom="64dp"
+        android:background="@drawable/button_border_warning"
+        android:backgroundTint="@color/lightWarm"
+        android:textColor="@color/primary" /> <!-- Set button text color to white -->
 
 </RelativeLayout>

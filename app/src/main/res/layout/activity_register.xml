@@ -74,6 +74,17 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
-        android:text="Register" />
+        android:text="Sign up"
+        android:backgroundTint="@color/primary"/>
+
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Log in"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/button_border"
+        android:textColor="@color/secondary"/>
+
 
 </LinearLayout>

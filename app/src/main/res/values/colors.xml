@@ -1,11 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="black">#291D4A</color>
+    <color name="disabledText">#948EA5</color>
+    <color name="disabledButton">#E4E3E8</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="lightWarm">#FFF1F1</color>
+    <color name="lightCold">#F6FAFF</color>
+    <color name="lightGrey">#EEEEEE</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="primary">#EF3062</color>
+    <color name="primaryMild">#F797B0</color>
+    <color name="primaryLight">#FDE0E7</color>
+
+    <color name="secondary">#3251AE</color>
+    <color name="secondaryMild">#8CA4DE</color>
+    <color name="secondaryLight">#E2E8FA</color>
+
+    <color name="accent">#E87604</color>
+    <color name="accentMild">#F7BA68</color>
+    <color name="accentLight">#FFDE9E</color>
+
+
+
     <color name="yellow">#E3841F</color>
     <color name="red">#E31F1F</color>
     <color name="primaryColor">#2196F3</color> <!-- 蓝色 -->
-    <color name="accentColor">#FF4081</color> <!-- 粉红色 -->
+    <color name="accentColor">#EF3062</color> <!-- 粉红色 -->
     <color name="textColorPrimary">#000000</color> <!-- 黑色 -->
     <color name="textColorSecondary">#757575</color> <!-- 灰色 -->
     <color name="buttonBackground">#E0E0E0</color> <!-- 按钮背景色 -->
@@ -29,6 +51,6 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
 
-    <color name="colorSelected">#29A4EA</color>
-    <color name="colorNotSelected">#757575</color>
+    <color name="colorSelected">#E2E8FA</color>
+    <color name="colorNotSelected">#F6FAFF</color>
 </resources>

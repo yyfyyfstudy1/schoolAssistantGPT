@@ -16,10 +16,9 @@
         android:id="@+id/uploadButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:backgroundTint="@color/black"
+        android:layout_margin="16dp"
         android:text="Upload PDF"
-        app:cornerRadius="0dp" />
+        android:backgroundTint="@color/primary" />
 
 
 
