@@ -58,7 +58,8 @@
             android:layout_weight="1"
             android:backgroundTint="@color/black"
             android:text="copy"
-            app:cornerRadius="7dp" />
+            android:fontFamily="@font/bungee"
+            app:cornerRadius="8dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/shareBtn"
@@ -66,9 +67,10 @@
             android:layout_height="50dp"
             android:layout_marginRight="20dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/black"
+            android:backgroundTint="@color/primary"
             android:text="Share"
-            app:cornerRadius="7dp" />
+            android:fontFamily="@font/bungee"
+            app:cornerRadius="8dp"/>
 
     </LinearLayout>
 

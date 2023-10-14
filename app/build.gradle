@@ -63,7 +63,7 @@ dependencies {
     // The compose calendar library
     implementation 'com.kizitonwose.calendar:view:2.0.1'
     implementation 'com.applandeo:material-calendar-view:1.7.0'
-
+    implementation 'com.google.android.material:material:1.0.0'
 
 
     testImplementation 'junit:junit:4.13.2'

@@ -12,7 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,10 +23,10 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import comp5216.sydney.edu.au.learn.util.FireBaseUtil;
 
 public class RegisterActivity extends AppCompatActivity {
-    public EditText username;
-    public EditText email;
-    public EditText password;
-    public EditText passwordConfirm;
+    public TextInputEditText username;
+    public TextInputEditText email;
+    public TextInputEditText password;
+    public TextInputEditText passwordConfirm;
 
     private Button registerBtn;
 
@@ -104,14 +106,21 @@ public class RegisterActivity extends AppCompatActivity {
                                     }
                                 });
                     } else {
+                        Exception exception = task.getException();
+                        Log.e("UniFlow", "Registration failed", exception);
                         // register failed
-                        if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                        if (exception instanceof FirebaseAuthWeakPasswordException) {
+                            // Handle weak password exception
                             Toast.makeText(RegisterActivity.this,
-                                    "Email is already registered.\nPlease sign in or use a new address.",
+                                    "Password is too weak. Please use a password with at least 6 characters.",
+                                    Toast.LENGTH_SHORT).show();
+                        } else if (exception instanceof FirebaseAuthUserCollisionException) {
+                            Toast.makeText(RegisterActivity.this,
+                                    "Email is already registered. Please sign in or use a new address.",
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(RegisterActivity.this,
-                                    "Registration failed. \nPlease try again later.",
+                                    "Registration failed. Please try again later.",
                                     Toast.LENGTH_SHORT).show();
                         }
                     }

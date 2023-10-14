@@ -30,13 +30,11 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        greetingTextView = view.findViewById(R.id.greeting);
+        greetingTextView = view.findViewById(R.id.greetingUser);
         String username = getUsername();
 
         if (username != null) {
-            greetingTextView.setText("Hi, " + username + "!");
-        } else {
-            greetingTextView.setText("Hi there!");
+            greetingTextView.setText(username);
         }
     }
 
