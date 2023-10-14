@@ -20,6 +20,8 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@drawable/button_color_selector"
             android:text="Email"
+            android:fontFamily="@font/bungee"
+            android:textSize="14sp"
             android:textColor="@color/secondary"
             app:cornerRadius="18dp" />
 
@@ -30,6 +32,8 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@drawable/button_color_selector"
             android:text="Message"
+            android:fontFamily="@font/bungee"
+            android:textSize="14sp"
             android:textColor="@color/secondary"
             app:cornerRadius="18dp" />
     </com.google.android.material.button.MaterialButtonToggleGroup>
@@ -75,11 +79,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="15dp"
-                    android:paddingBottom="15dp"
+                    android:paddingTop="16dp"
+                    android:paddingLeft="12dp"
+                    android:paddingBottom="16dp"
                     android:text="preference"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"/>
             </com.google.android.material.card.MaterialCardView>
 
             <!-- collapse content -->
@@ -103,9 +107,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="15dp"
-                    android:paddingBottom="15dp"
+                    android:paddingTop="16dp"
+                    android:paddingLeft="12dp"
+                    android:paddingBottom="16dp"
                     android:text="History"
                     android:textSize="20sp" />
             </com.google.android.material.card.MaterialCardView>
@@ -125,9 +129,12 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/composeEmailBtn"
             android:layout_width="match_parent"
-            android:layout_margin="16dp"
+            android:layout_margin="12dp"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/primary"
-            android:text="Compose" />
+            android:text="Compose"
+            android:fontFamily="@font/bungee"
+            android:textSize="18sp"
+            app:cornerRadius="8dp"/>
     </LinearLayout>
 </LinearLayout>

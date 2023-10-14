@@ -8,10 +8,9 @@
     android:id="@+id/login_container">
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/ic_launcher_foreground"
-        android:layout_gravity="center_horizontal"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/uniflow_logo"
         />
 
     <TextView
@@ -19,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Welcome to \nStu Buddy!"
+        android:text="Welcome to \nUniFlow!"
         android:textSize="40sp"
         android:fontFamily="@font/bungee"/>
 
@@ -74,12 +73,15 @@
             android:background="@color/transparent"
             android:layout_gravity="right" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="LOG IN"
+            android:fontFamily="@font/bungee"
             android:layout_marginTop="8dp"
+            android:textSize="18sp"
+            app:cornerRadius="8dp"
             android:backgroundTint="@color/primary"/>
 
         <Button

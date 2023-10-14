@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#291D4A</color>
+    <color name="textColorSecondary">#757575</color>
+
     <color name="disabledText">#948EA5</color>
     <color name="disabledButton">#E4E3E8</color>
     <color name="transparent">#00000000</color>
 
     <color name="lightWarm">#FFF1F1</color>
     <color name="lightCold">#F6FAFF</color>
-    <color name="lightGrey">#EEEEEE</color>
+    <color name="lightGrey">#DDDDDD</color>
     <color name="white">#FFFFFF</color>
 
     <color name="primary">#EF3062</color>
@@ -24,13 +26,9 @@
 
 
 
-    <color name="yellow">#E3841F</color>
-    <color name="red">#E31F1F</color>
-    <color name="primaryColor">#2196F3</color> <!-- 蓝色 -->
-    <color name="accentColor">#EF3062</color> <!-- 粉红色 -->
     <color name="textColorPrimary">#000000</color> <!-- 黑色 -->
-    <color name="textColorSecondary">#757575</color> <!-- 灰色 -->
-    <color name="buttonBackground">#E0E0E0</color> <!-- 按钮背景色 -->
+
+    <color name="buttonBackground">#E0E0E0</color>
     <color name="backgroundGreen">#FDFFF9</color>
     <color name="lightGreen">#9A437D28</color>
     <color name="generalGreen">#008005</color>

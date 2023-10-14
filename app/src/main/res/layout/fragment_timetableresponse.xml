@@ -43,13 +43,15 @@
 
         </LinearLayout>
     </FrameLayout>
+
+    <!--  chat box  -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="8dp">
 
         <EditText
             android:id="@+id/myEditText"
@@ -58,7 +60,7 @@
             android:background="@drawable/edittext_rounded_background"
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
-            android:hint="Ask based on your time table...."
+            android:hint="Ask about my schedule"
             android:paddingStart="16dp"
             android:paddingEnd="16dp" />
 
@@ -73,6 +75,5 @@
             android:src="@drawable/ic_baseline_send_24" />
 
     </RelativeLayout>
-
 
 </LinearLayout>

@@ -16,7 +16,9 @@
             app:eventsEnabled="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:highlightedDaysLabelsColor="@color/red" />
+            app:highlightedDaysLabelsColor="@color/primaryMild"
+            app:selectionColor="@color/black"
+            app:headerColor="@color/black"/>
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -24,19 +26,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <!--  add event button-->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/addEventBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/red"
-            android:text="Add one event"
-            app:cornerRadius="0dp" />
+            android:text="New event"
+            android:textSize="18sp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="4dp"
+            app:cornerRadius="8dp"
+            android:backgroundTint="@color/primary"
+            android:fontFamily="@font/bungee"
+            />
+
+        <!--  chat button-->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/composeTimeTableBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/black"
             android:text="Finished edit"
-            app:cornerRadius="0dp" />
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="4dp"
+            android:textSize="18sp"
+            app:cornerRadius="8dp"
+            android:backgroundTint="@color/black"
+            android:fontFamily="@font/bungee" />
     </LinearLayout>
 </ScrollView>
