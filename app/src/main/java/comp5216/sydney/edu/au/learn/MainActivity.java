@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import comp5216.sydney.edu.au.learn.Common.HeaderFragment;
 import comp5216.sydney.edu.au.learn.fragment.HomeFragment;
 import comp5216.sydney.edu.au.learn.fragment.EmailFragment;
 import comp5216.sydney.edu.au.learn.fragment.LectureFragment;
