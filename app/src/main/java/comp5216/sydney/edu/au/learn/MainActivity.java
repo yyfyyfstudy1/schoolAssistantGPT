@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                         loadFragment(new LectureFragment(), userId);
                         return true;
                     case R.id.navigation_profile:
-                        toolbar_title.setText("My Profile");
+                        toolbar_title.setText("My Timetable");
                         loadFragment(new TimeTableFragment(), userId);
                         return true;
                 }

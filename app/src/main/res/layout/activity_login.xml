@@ -1,91 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="24dp"
     android:id="@+id/login_container">
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/ic_launcher_foreground"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp" />
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/uniflow_logo"
+        />
 
     <TextView
-        android:id="@+id/promptEmail"
+        android:id="@+id/greeting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Email" />
+        android:text="Welcome to \nUniFlow!"
+        android:textSize="40sp"
+        android:fontFamily="@font/bungee"/>
 
-    <EditText
-        android:id="@+id/etUsername"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:hint="user@email.com"
-        android:inputType="text"
-        android:maxLines="1"
-        android:padding="5dp"
-       />
-
-    <TextView
-        android:id="@+id/promptPassword"
+    <!-- google material input edit -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Password" />
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        >
 
-    <EditText
-        android:id="@+id/etPassword"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:maxLines="1"
-        android:padding="5dp"
-       />
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            >
 
-    <LinearLayout
-        android:id="@+id/buttonView"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/etUsername"
+                android:inputType="textEmailAddress">
+
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="Password"
+            app:passwordToggleEnabled="true"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/etPassword"
+                android:inputType="textPassword">
+
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:id="@+id/btnForgotPassword"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:text="Forgot Password?"
+            android:textColor="@color/black"
+            android:background="@color/transparent"
+            android:layout_gravity="right" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogin"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login"
-            android:background="@drawable/bg_1"/>
+            android:text="LOG IN"
+            android:fontFamily="@font/bungee"
+            android:layout_marginTop="8dp"
+            android:textSize="18sp"
+            app:cornerRadius="8dp"
+            android:backgroundTint="@color/primary"/>
+
         <Button
-            android:id="@+id/register"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="register"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/bg_right"
-            />
-
-
-
-
+            android:text="Don't have an account? SIGN UP now!"
+            android:textColor="@color/black"
+            android:background="@color/transparent"/>
 
     </LinearLayout>
-
-
-<!--TODO: sign up button in the text-->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Don't have an account? Sign up here."
-        android:gravity="center"
-        android:textColor="@android:color/darker_gray" />
 
 </LinearLayout>
