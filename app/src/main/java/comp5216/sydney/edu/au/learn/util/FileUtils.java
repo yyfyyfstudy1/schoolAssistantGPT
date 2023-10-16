@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.OpenableColumns;
@@ -51,6 +52,20 @@ public class FileUtils {
 
         return tempFile;
     }
+
+
+    public static void saveBitmapAsPNG(Bitmap bitmap, File outputFile) throws IOException {
+        FileOutputStream outStream = null;
+        try {
+            outStream = new FileOutputStream(outputFile);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);  // 压缩为 PNG 格式, 100 表示最高质量
+        } finally {
+            if (outStream != null) {
+                outStream.close();
+            }
+        }
+    }
+
 }
 
 

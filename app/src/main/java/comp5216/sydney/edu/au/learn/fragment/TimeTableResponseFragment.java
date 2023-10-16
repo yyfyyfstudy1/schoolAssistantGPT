@@ -99,7 +99,7 @@ public class TimeTableResponseFragment extends Fragment {
         StringBuilder requestText = new StringBuilder();
         requestText.append("This is my timetable [ ");
         requestText.append(formattedData);
-        requestText.append("]. Now please answer my following question based on this timetable. strictly return an HTML style reply (needs to have recognizable html tags), Do not reply with anything other than html style content");
+        requestText.append("]. Now please answer my following question based on this timetable. strictly return an HTML style reply (needs to have recognizable html tags), Do not reply with anything other content than html style answer");
         requestText.append(userInput);
 
         String requestBody = "{\"messages\": [{\"role\": \"system\", \"content\": \"You are a helpful assistant.\"}, {\"role\": \"system\", \"content\": \"[clear context]\"}, {\"role\": \"user\", \"content\": \"" + requestText + "\"}], \"model\": \"gpt-3.5-turbo\"}";

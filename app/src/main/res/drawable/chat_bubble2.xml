@@ -2,8 +2,8 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@android:color/white"/> <!-- 背景颜色 -->
-            <corners android:radius="5dp"/> <!-- 圆角半径 -->
+            <solid android:color="@color/cardViewColorBlue"/> <!-- 背景颜色 -->
+            <corners android:radius="15dp"/> <!-- 圆角半径 -->
         </shape>
     </item>
 </selector>
