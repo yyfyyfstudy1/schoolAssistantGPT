@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,6 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
     public TextInputEditText passwordConfirm;
 
     private Button registerBtn;
+    private Button loginBtn;
 
     private FirebaseAuth mAuth;
 
@@ -42,10 +44,16 @@ public class RegisterActivity extends AppCompatActivity {
         password = findViewById(R.id.etPassword);
         passwordConfirm = findViewById(R.id.repeatPassword);
         registerBtn = findViewById(R.id.registerBtn);
-
+        loginBtn = findViewById(R.id.loginBtn);
         registerBtn.setOnClickListener(this::registerClick);
         mAuth = FirebaseAuth.getInstance();
+        loginBtn.setOnClickListener(this::toLoginClick);
 
+    }
+
+    private void toLoginClick(View view){
+        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+        // TODO: StartActivityForResult? so that user can switch back to log in page
     }
 
     // validate all fields on clicking register btn
