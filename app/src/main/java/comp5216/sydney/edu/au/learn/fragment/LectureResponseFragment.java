@@ -21,6 +21,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.canvas.parser.PdfTextExtractor;
+
+import org.apache.commons.io.FilenameUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -133,7 +136,9 @@ public class LectureResponseFragment extends Fragment {
 
         // from general
         if (pdfFilePath !=null){
-            args.putString("pdfFilePath", pdfFilePath);
+            String fileName = new File(pdfFilePath).getName();
+            String baseName = FilenameUtils.getBaseName(fileName);
+            args.putString("pdfName", baseName);
         }
 
         // from history

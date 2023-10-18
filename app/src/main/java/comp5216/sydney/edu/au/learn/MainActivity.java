@@ -19,7 +19,12 @@ import comp5216.sydney.edu.au.learn.fragment.EmailFragment;
 import comp5216.sydney.edu.au.learn.fragment.LectureFragment;
 import comp5216.sydney.edu.au.learn.fragment.TimeTableFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BottomNavigationListener {
+
+    private BottomNavigationView bottomNavigationView;
+    private TextView toolbar_title;
+    private String userId;
+
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,15 +34,14 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.simple_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);  // disable default title
-        TextView toolbar_title = findViewById(R.id.toolbar_title);
+        toolbar_title = findViewById(R.id.toolbar_title);
 
-
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         // get SharedPreferences instance
         SharedPreferences sharedPreferences = getSharedPreferences("comp5216", Context.MODE_PRIVATE);
 
-        String userId = sharedPreferences.getString("userId", null);
+        userId = sharedPreferences.getString("userId", null);
 
         if (userId == null) {
             // if userId not exit, return to the login page
@@ -58,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                         toolbar_title.setText("Smart Lecture");
                         loadFragment(new LectureFragment(), userId);
                         return true;
-                    case R.id.navigation_profile:
+                    case R.id.navigation_timetable:
                         toolbar_title.setText("My Timetable");
                         loadFragment(new TimeTableFragment(), userId);
                         return true;
@@ -69,8 +73,6 @@ public class MainActivity extends AppCompatActivity {
             // load a fragment by default
             loadFragment(new HomeFragment(), userId);
         }
-
-
     }
 
     private void loadFragment(Fragment fragment, String userId) {
@@ -84,4 +86,10 @@ public class MainActivity extends AppCompatActivity {
         transaction.commitAllowingStateLoss();
     }
 
+    @Override
+    public void onBottomNavigationItemSelected(int itemId) {
+        bottomNavigationView.setSelectedItemId(itemId);
+    }
+
 }
+
