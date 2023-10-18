@@ -90,4 +90,18 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         notifyItemInserted(messages.size() - 1);
     }
 
+    public void deletePreviewMessage() {
+        for (int i = messages.size() - 1; i >= 0; i--) {
+            Message msg = messages.get(i);
+
+            // delete the preview message
+            if (msg.getType() == Message.MessageType.PREVIEW) {
+                messages.remove(i);
+                notifyItemRemoved(i);
+                return;
+            }
+        }
+    }
+
+
 }

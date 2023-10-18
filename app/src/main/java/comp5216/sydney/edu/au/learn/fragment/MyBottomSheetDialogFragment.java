@@ -49,7 +49,6 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
     private EditText myEditText;
     private ImageButton senToGptBtn;
     private String userQuestion;
-    private String pdfFilePath;
     private String userId;
     private String pdfName;
     private String pdfContentSummary;
@@ -109,8 +108,6 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
         // 获取传递的参数
         Bundle args = getArguments();
         if (args != null) {
-
-            pdfFilePath = args.getString("filePath");
             userId = args.getString("userId");
             pdfName = args.getString("pdfName");
             pdfContentSummary = args.getString("pdfContentSummary");
@@ -201,6 +198,13 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
             chatRecyclerView.smoothScrollToPosition(chatAdapter.getItemCount() - 1); // 滚动到最新的消息
 
 
+            // set received message
+            Message PreviewMessage = new Message("I'm editing the answer, please wait...", Message.MessageType.PREVIEW);
+            chatAdapter.addMessage(PreviewMessage);
+            chatRecyclerView.smoothScrollToPosition(chatAdapter.getItemCount() - 1); // 滚动到最新的消息
+
+
+
             StringBuilder requestText = new StringBuilder();
 
             requestText.append("Following is the content of my university lecture material : [ ");
@@ -258,6 +262,9 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
                     public void run() {
                         // run this in the main tread
 
+                        // delete preview message
+                        chatAdapter.deletePreviewMessage();
+
                         // set received message
                         Message newSentMessage = new Message(content, Message.MessageType.RECEIVED);
                         chatAdapter.addMessage(newSentMessage);
@@ -267,11 +274,6 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
                         // Get the original file name
                         if (pdfName !=null){
                             saveQuestionAnswerToFirebase(pdfName, userQuestion, content);
-                        }else {
-                            String fileName = new File(pdfFilePath).getName();
-                            String baseName = FilenameUtils.getBaseName(fileName);
-
-                            saveQuestionAnswerToFirebase(baseName, userQuestion, content);
                         }
 
                     }
