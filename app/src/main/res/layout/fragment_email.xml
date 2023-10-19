@@ -91,7 +91,7 @@
                 android:id="@+id/expandableLayout1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/borderGray"
+                android:background="@color/lightGray"
                 android:visibility="gone" />
 
             <com.google.android.material.card.MaterialCardView

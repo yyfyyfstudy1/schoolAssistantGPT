@@ -66,6 +66,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'commons-io:commons-io:2.8.0'
     implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1'
+    implementation "io.noties.markwon:core:4.2.0"
+
 
 
 
