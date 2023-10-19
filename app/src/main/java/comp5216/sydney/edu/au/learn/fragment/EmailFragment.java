@@ -1,15 +1,19 @@
 package comp5216.sydney.edu.au.learn.fragment;
 
+import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
-
-import android.animation.Animator;
-import android.animation.ValueAnimator;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.os.Environment;
+import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -26,7 +30,11 @@ import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.card.MaterialCardView;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Objects;
 
 import comp5216.sydney.edu.au.learn.R;
 import comp5216.sydney.edu.au.learn.viewAdapter.HistoryListAdapter;
@@ -53,6 +61,9 @@ public class EmailFragment extends Fragment {
 
     private ScrollView scrollView;
 
+    private ImageButton audioButton;
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -72,6 +83,7 @@ public class EmailFragment extends Fragment {
         composeEmailBtn = view.findViewById(R.id.composeEmailBtn);
         thoughtEditText = view.findViewById(R.id.thoughtEditText);
         scrollView = view.findViewById(R.id.ScrollView);
+        audioButton = view.findViewById(R.id.audioButton);
 
         // set preference recycler view
         setPreferenceView(view);
@@ -143,8 +155,9 @@ public class EmailFragment extends Fragment {
 
         // click with call gpt API
         composeEmailBtn.setOnClickListener(this::composeEmailClick);
-
+        audioButton.setOnClickListener(this::convertSpeechToText);
     }
+
 
     private void setPreferenceView(View view){
         // create and set recycler view layout manager
@@ -265,6 +278,28 @@ public class EmailFragment extends Fragment {
 
 
 
+    private void convertSpeechToText(View view) {
+        Intent speechIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        speechIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        speechIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+
+        if (speechIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivityForResult(speechIntent, 10);
+        } else {
+
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 10 && resultCode == RESULT_OK && data != null) {
+            ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            // 输出或显示转换的文字
+            thoughtEditText.setText(result.get(0));
+        }
+    }
 
 
 

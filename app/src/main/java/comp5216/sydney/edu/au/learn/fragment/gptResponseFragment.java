@@ -1,9 +1,12 @@
 package comp5216.sydney.edu.au.learn.fragment;
 
+import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +31,8 @@ import com.alibaba.fastjson.JSONObject;
 import org.jsoup.Jsoup;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Objects;
 
 import comp5216.sydney.edu.au.learn.R;
@@ -41,6 +46,7 @@ import okhttp3.Response;
 
 
 public class gptResponseFragment extends Fragment {
+
     private TextView gptResponseWebView;
     private ImageButton senToGptBtn;
 
@@ -56,6 +62,9 @@ public class gptResponseFragment extends Fragment {
     private String userPreferenceChoose;
 
     private boolean isMessage;
+
+    private ImageButton audioButton;
+
 
     @Nullable
     @Override
@@ -77,6 +86,7 @@ public class gptResponseFragment extends Fragment {
         myEditText = view.findViewById(R.id.myEditText);
         progressBar = view.findViewById(R.id.progressBar);
         loadingText = view.findViewById(R.id.loadingText);
+        audioButton = view.findViewById(R.id.audioButton);
         // before get the gpt first response, the button can`t click
         senToGptBtn.setEnabled(false);
 
@@ -108,6 +118,30 @@ public class gptResponseFragment extends Fragment {
         }
 
         senToGptBtn.setOnClickListener(this::fixContentWithGpt);
+        audioButton.setOnClickListener(this::convertSpeechToText);
+    }
+
+    private void convertSpeechToText(View view) {
+        Intent speechIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        speechIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        speechIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+
+        if (speechIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivityForResult(speechIntent, 10);
+        } else {
+
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 10 && resultCode == RESULT_OK && data != null) {
+            ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            // 输出或显示转换的文字
+            myEditText.setText(result.get(0));
+        }
     }
 
     private void setEmailHistoryContent(String emailHistoryContent) {
