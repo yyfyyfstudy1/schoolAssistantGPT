@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,6 +44,12 @@ public class EmailFragment extends Fragment {
 
     private String userId;
 
+    ArrayList<String> preferenceList;
+
+    private String userPreferenceChoose;
+
+    private boolean isMessage = false;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -68,14 +75,31 @@ public class EmailFragment extends Fragment {
         // set history recycler view
         setHistoryView(view, userId);
 
-
-        MaterialButtonToggleGroup toggleGroup = view.findViewById(R.id.toggleGroup);
         MaterialCardView cardView1 = view.findViewById(R.id.cardView1);
         MaterialCardView cardView2 = view.findViewById(R.id.cardView2);
+
+        MaterialButtonToggleGroup toggleGroup = view.findViewById(R.id.toggleGroup);
         final MaterialButton emailButton = view.findViewById(R.id.emailButton);
         final MaterialButton messageButton = view.findViewById(R.id.messageButton);
 
         toggleGroup.check(R.id.emailButton);
+
+        toggleGroup.addOnButtonCheckedListener(new MaterialButtonToggleGroup.OnButtonCheckedListener() {
+            @Override
+            public void onButtonChecked(MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
+                if (isChecked) {
+                    switch (checkedId) {
+                        case R.id.emailButton:
+                            isMessage = false;
+                            break;
+                        case R.id.messageButton:
+                            isMessage = true;
+                            break;
+                    }
+                }
+            }
+        });
+
 
         cardView1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,26 +145,20 @@ public class EmailFragment extends Fragment {
     private void setPreferenceView(View view){
         // create and set recycler view layout manager
         expandableRecyclerView1 = view.findViewById(R.id.expandableLayout1);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        expandableRecyclerView1.setLayoutManager(layoutManager);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+        expandableRecyclerView1.setLayoutManager(gridLayoutManager);
 
-        ArrayList<String> preferenceList = new ArrayList<>();
-        preferenceList.add("to ask tutor...");
-        preferenceList.add("to mention the team member.....");
-        preferenceList.add("to ask tutor...");
-        preferenceList.add("to ask tutor...");
-        preferenceList.add("to mention the team member.....");
-        preferenceList.add("to ask tutor...");
-        preferenceList.add("to ask tutor...");
-        preferenceList.add("to mention the team member.....");
-        preferenceList.add("to ask tutor...");
-        preferenceList.add("to ask tutor...");
-        preferenceList.add("to mention the team member.....");
-        preferenceList.add("to ask tutor...");
+        preferenceList = new ArrayList<>();
+        preferenceList.add("🤗 " + "Friendly");
+        preferenceList.add("😡 " + "Brutal");
+        preferenceList.add("🏆 " + "Confident");
+        preferenceList.add("🤩 " + "Joyful");
+        preferenceList.add("🥳 " + "Exciting");
+        preferenceList.add("🥸 " + "Information");
 
 
         // create and set the adapter
-        preferenceListAdapter = new PreferenceListAdapter(getContext(),preferenceList);
+        preferenceListAdapter = new PreferenceListAdapter(getContext(),preferenceList, preferenceClickListener);
         expandableRecyclerView1.setAdapter(preferenceListAdapter);
 
     }
@@ -164,6 +182,10 @@ public class EmailFragment extends Fragment {
         Bundle args = new Bundle();
         args.putString("userEditContent", thoughtEditText.getText().toString());
         args.putString("userId", userId);
+        args.putBoolean("isMessage", isMessage);
+        if (userPreferenceChoose !=null){
+            args.putString("userPreference", userPreferenceChoose);
+        }
         gptResponseFragment.setArguments(args);
         // change fragment
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -203,6 +225,38 @@ public class EmailFragment extends Fragment {
             transaction.commitAllowingStateLoss();
         }
     };
+
+    PreferenceListAdapter.OnItemClickListener preferenceClickListener = new PreferenceListAdapter.OnItemClickListener() {
+        @Override
+        public void onItemClick(int position) {
+            String selectedItem = preferenceList.get(position);
+            String filteredString = removeEmoji(selectedItem);
+
+            // add preference
+
+
+            Log.d("yyf", filteredString);
+            userPreferenceChoose = filteredString;
+
+
+        }
+    };
+
+
+    public static String removeEmoji(String source) {
+        if (source == null) {
+            return null;
+        }
+
+        // 这是一个用于匹配大部分emoji的正则表达式
+        String regex = "[\\uD800-\\uDFFF]";
+        return source.replaceAll(regex, "");
+    }
+
+
+
+
+
 
 
 }
