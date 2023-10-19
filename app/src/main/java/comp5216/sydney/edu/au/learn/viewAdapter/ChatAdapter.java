@@ -9,17 +9,21 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Objects;
 
 import comp5216.sydney.edu.au.learn.Common.Message;
 import comp5216.sydney.edu.au.learn.R;
+import io.noties.markwon.Markwon;
 
 public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int SENT = 0;
     private static final int RECEIVED = 1;
     private List<Message> messages;
+    private Context context;
 
     public ChatAdapter(Context context, List<Message> messages) {
+        this.context = context;
         this.messages = messages;
     }
 
@@ -63,7 +67,10 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         public void bind(Message message) {
-            tvMessage.setText(message.getContent());
+            // bind with markdown
+            Markwon markwon = Markwon.create(Objects.requireNonNull(context));
+            markwon.setMarkdown(tvMessage, message.getContent());
+
         }
     }
 
@@ -76,7 +83,8 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         public void bind(Message message) {
-            tvMessage.setText(message.getContent());
+            Markwon markwon = Markwon.create(Objects.requireNonNull(context));
+            markwon.setMarkdown(tvMessage, message.getContent());
         }
     }
 
