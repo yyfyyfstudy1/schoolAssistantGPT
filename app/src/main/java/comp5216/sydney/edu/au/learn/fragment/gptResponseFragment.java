@@ -36,6 +36,8 @@ import java.util.Locale;
 import java.util.Objects;
 
 import comp5216.sydney.edu.au.learn.R;
+import comp5216.sydney.edu.au.learn.Sensor.ShakeDetector;
+import comp5216.sydney.edu.au.learn.Sensor.ShakeListener;
 import comp5216.sydney.edu.au.learn.util.FireBaseUtil;
 import comp5216.sydney.edu.au.learn.util.NetworkUtils;
 import comp5216.sydney.edu.au.learn.util.toastUtil;
@@ -65,6 +67,14 @@ public class gptResponseFragment extends Fragment {
 
     private ImageButton audioButton;
 
+    private ShakeDetector shakeDetector;
+
+    private boolean canShake = false;
+
+    private boolean isFixAnswer = false;
+
+    private String fixText;
+
 
     @Nullable
     @Override
@@ -77,6 +87,9 @@ public class gptResponseFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        toastUtil.topSnackBar(view, "You can shake with refresh the Email ! ");
+
         // get parameter
         Bundle args = getArguments();
 
@@ -110,7 +123,7 @@ public class gptResponseFragment extends Fragment {
                 showLoading(false);
                 senToGptBtn.setEnabled(true);
                 setEmailHistoryContent(emailHistoryContent);
-
+                canShake = true;
 
             }
 
@@ -119,7 +132,37 @@ public class gptResponseFragment extends Fragment {
 
         senToGptBtn.setOnClickListener(this::fixContentWithGpt);
         audioButton.setOnClickListener(this::convertSpeechToText);
+
+        shakeDetector = new ShakeDetector(getContext(), new ShakeListener() {
+            @Override
+            public void onShake() {
+
+                if (canShake){
+                    if (fixText == null){
+                        callGptForResponse(userEditContent);
+                    }else {
+                        fixContentWithGpt(view);
+                    }
+
+                }
+
+            }
+        });
+
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        shakeDetector.start();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        shakeDetector.stop();
+    }
+
 
     private void convertSpeechToText(View view) {
         Intent speechIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -154,8 +197,13 @@ public class gptResponseFragment extends Fragment {
     private void fixContentWithGpt(View view){
         // clear the show
         gptResponseWebView.setText("");
+        canShake = false;
         showLoading(true);  // show loading bar
-        String fixText = myEditText.getText().toString();
+
+        if (!myEditText.getText().toString().equals("")){
+            fixText = myEditText.getText().toString();
+        }
+
         StringBuilder requestText = new StringBuilder();
 
         requestText.append("my original email is: [ ");
@@ -193,6 +241,11 @@ public class gptResponseFragment extends Fragment {
 
     private void callGptForResponse(String inputText){
         showLoading(true);  // show loading bar
+
+        canShake = false;
+
+        gptResponseWebView.setText("");
+
         StringBuilder requestText = new StringBuilder();
 
         if (isMessage){
@@ -226,6 +279,8 @@ public class gptResponseFragment extends Fragment {
 
 
     private void handleResponse(Response response) throws IOException {
+
+        canShake = true;
         String responseBody = response.body().string();
 
         if (response.code() == 200) {
