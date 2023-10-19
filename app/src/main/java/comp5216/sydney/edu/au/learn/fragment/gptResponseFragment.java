@@ -160,7 +160,7 @@ public class gptResponseFragment extends Fragment {
         StringBuilder requestText = new StringBuilder();
 
         if (isMessage){
-            requestText.append("Please help me edit a message based on the following content.");
+            requestText.append("Please help me edit a message based on the following content.strictly return an Markdown style reply");
         }else {
             requestText.append("Convert the following request into a well-formatted email. In order to preserve the formatting of the email, strictly return an Markdown style reply, Don`t say other things,  I only need the content of the email.");
         }
