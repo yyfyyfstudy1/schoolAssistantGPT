@@ -118,6 +118,8 @@ public class gptResponseFragment extends Fragment {
 
 
     private void fixContentWithGpt(View view){
+        // clear the show
+        gptResponseWebView.setText("");
         showLoading(true);  // show loading bar
         String fixText = myEditText.getText().toString();
         StringBuilder requestText = new StringBuilder();

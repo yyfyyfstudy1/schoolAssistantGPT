@@ -19,6 +19,7 @@ import android.widget.ImageButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -73,6 +74,7 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
         myEditText = view.findViewById(R.id.myEditText);
 
 
+
         expandButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,8 +115,6 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
             pdfContentSummary = args.getString("pdfContentSummary");
         }
 
-        // get chat history
-        getChatHistory();
 
         chatRecyclerView = view.findViewById(R.id.chatRecyclerView);
         // 创建并设置RecyclerView的LayoutManager
@@ -124,6 +124,9 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
         // 创建并设置RecyclerView的Adapter
         chatAdapter = new ChatAdapter(getContext(),new ArrayList<Message>());
         chatRecyclerView.setAdapter(chatAdapter);
+
+        // get chat history
+        getChatHistory();
 
         // get offer data
         return view;
@@ -135,8 +138,27 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
             @Override
             public void onSuccess(List<Message> chatData) {
 
-                 chatAdapter.setMessages(chatData);
-                 chatAdapter.notifyDataSetChanged();
+                chatAdapter.setMessages(chatData);
+                chatAdapter.notifyDataSetChanged();
+
+                // if there have no chat data, call for question
+                 if (chatData.size()==0){
+
+                     // set received message
+                     Message PreviewMessage = new Message("Hi ! nice to meet you ! I am general questions based on the pdf...", Message.MessageType.PREVIEW);
+                     chatAdapter.addMessage(PreviewMessage);
+                     chatRecyclerView.smoothScrollToPosition(chatAdapter.getItemCount() - 1); // 滚动到最新的消息
+
+
+                     callGptForQuestion();
+
+
+                 }
+
+                 if (chatAdapter.getItemCount() >3){
+                     chatRecyclerView.smoothScrollToPosition(chatAdapter.getItemCount() - 1); // 滚动到最新的消息
+                 }
+
 
                 for (Message msg : chatData) {
                     Log.d("CHAT_DATA", msg.getContent() + " | Type: " + msg.getType().toString());
@@ -217,7 +239,7 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
             requestText.append(" Using all this information as your knowledge source, I want you to answer the following question: ");
 
             requestText.append(userQuestion);
-//            requestText.append(". You must always return in html format.");
+            requestText.append(". In order to preserve the formatting of your answer, strictly return an Markdown style reply.");
 
             myEditText.setText("");
 
@@ -252,9 +274,6 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
             JSONObject message = firstChoice.getJSONObject("message");
             String content = message.getString("content");
 
-            StringBuilder finalAnswerHtml = new StringBuilder();
-            finalAnswerHtml.append("<h3>GPT ANSWER </h3>");
-            finalAnswerHtml.append(content);
             // use getActivity() to get Activity
             if(getActivity() != null) {
                 getActivity().runOnUiThread(new Runnable() {
@@ -306,6 +325,82 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
         );
 
     }
+
+
+
+    //  call gpt again, to get the question based on the analyse result
+    private void callGptForQuestion(){
+        StringBuilder requestText = new StringBuilder();
+        requestText.append("The following content is the summary of PDF [");
+
+        requestText.append(pdfContentSummary);
+
+        requestText.append("]. now, give me three question based on the content, " +
+                "In order to preserve the formatting of the content, strictly reply the three question with jsonArray style (for example: ['question1', 'question2'] )." +
+                "i only need the question, don`t response any other content like answer of the question.");
+        String requestBody = "{\"messages\": [{\"role\": \"system\", \"content\": \"You are a helpful assistant.\"}, {\"role\": \"system\", \"content\": \"[clear context]\"}, {\"role\": \"user\", \"content\": \"" + requestText + "\"}], \"model\": \"gpt-3.5-turbo\"}";
+
+
+        NetworkUtils.postJsonRequest(requestBody, new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                handleResponseQuestion(response);
+
+            }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                handleFailure(e);
+            }
+        });
+    }
+    /*
+    * handle the response of gpt
+    * */
+    private void handleResponseQuestion(Response response) throws IOException {
+        String responseBody = response.body().string();
+
+        if (response.code() == 200) {
+
+            JSONObject jsonObject = JSONObject.parseObject(responseBody);
+            JSONObject firstChoice = jsonObject.getJSONArray("choices").getJSONObject(0);
+            JSONObject message = firstChoice.getJSONObject("message");
+            String content = message.getString("content");
+
+            // Replace escape characters
+            String jsonString = content.replace("\\n", "\n").replace("\\\"", "\"");
+            Log.e(TAG, "response: " + jsonString);
+
+            // Use fastjson to parse this JSON array
+            JSONArray jsonArray = JSONArray.parseArray(jsonString);
+
+
+            // use getActivity() to get Activity
+            if(getActivity() != null) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        // run this in the main tread
+
+                        // Loop through the JSONArray and add each string to the chat list
+                        for (int i = 0; i < jsonArray.size(); i++) {
+
+                            // set received message
+                            Message newSentMessage = new Message( jsonArray.getString(i), Message.MessageType.RECEIVED);
+                            chatAdapter.addMessage(newSentMessage);
+                            chatRecyclerView.smoothScrollToPosition(chatAdapter.getItemCount() - 1);
+
+                        }
+
+
+                    }
+                });
+            }
+        } else {
+
+        }
+    }
+
 
 
     private void handleFailure(IOException e) {

@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/chat_bubble2"
             android:textColor="#FFFFFF"
-            android:maxWidth="200dp"
+            android:maxWidth="280dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="6dp"
             android:textSize="18sp"

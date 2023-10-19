@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -50,6 +51,8 @@ public class EmailFragment extends Fragment {
 
     private boolean isMessage = false;
 
+    private ScrollView scrollView;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -68,6 +71,7 @@ public class EmailFragment extends Fragment {
 
         composeEmailBtn = view.findViewById(R.id.composeEmailBtn);
         thoughtEditText = view.findViewById(R.id.thoughtEditText);
+        scrollView = view.findViewById(R.id.ScrollView);
 
         // set preference recycler view
         setPreferenceView(view);
@@ -198,6 +202,12 @@ public class EmailFragment extends Fragment {
     }
 
     private void expandableView(final RecyclerView layout) {
+        scrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.fullScroll(View.FOCUS_DOWN);
+            }
+        });
         layout.setVisibility(View.VISIBLE);
     }
 
