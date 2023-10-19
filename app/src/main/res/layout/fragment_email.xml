@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ScrollView"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -43,18 +43,36 @@
                 app:cornerRadius="18dp" />
         </com.google.android.material.button.MaterialButtonToggleGroup>
 
-        <EditText
-            android:id="@+id/thoughtEditText"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:background="@null"
-            android:gravity="start|top"
-            android:hint="Write down your thought..."
-            android:inputType="textMultiLine"
-            android:lines="15"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp" />
+            android:layout_marginTop="30dp">
+
+            <EditText
+                android:id="@+id/thoughtEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="start|top"
+                android:hint="Write down your thought..."
+                android:inputType="textMultiLine"
+                android:lines="15"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp" />
+
+            <ImageButton
+                android:id="@+id/audioButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="bottom|end"
+                android:padding="16dp"
+                android:background="@drawable/audio"
+               />
+        </FrameLayout>
+
+
         <!-- 外层的 LinearLayout -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -141,6 +159,7 @@
                 android:text="Compose"
                 android:textSize="18sp"
                 app:cornerRadius="8dp" />
+
         </LinearLayout>
     </LinearLayout>
 
