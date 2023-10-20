@@ -10,21 +10,28 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/uploadButton"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginLeft="90dp"
-        android:layout_marginRight="90dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
         android:layout_marginTop="60dp"
-        android:backgroundTint="@color/black"
+
+        android:backgroundTint="@color/primary"
+        android:fontFamily="@font/bungee"
         android:text="Upload PDF"
-        app:cornerRadius="0dp" />
+        android:textSize="18sp"
+        app:cornerRadius="8dp" />
 
     <com.google.android.material.button.MaterialButton
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:backgroundTint="@color/black"
-        android:text="Upload PDF"
-        android:textStyle="bold"
+        android:backgroundTint="@color/transparent"
+        android:paddingLeft="12dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="Upload history"
+        android:textColor="@color/black"
+        android:textSize="20sp"
         android:textAlignment="textStart"
         app:cornerRadius="0dp" />
 

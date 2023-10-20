@@ -128,16 +128,16 @@ public class LectureFragment extends Fragment {
 
     }
 
-    // 请求权限的回调
+    // request permission
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQUEST_PERMISSIONS) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // 权限被授予
+                // granted
                 toastUtil.showToast(getContext(),"Permission granted");
             } else {
-                // 权限被拒绝
-                toastUtil.showToast(getContext(),"Permission denied");
+                // denied
+//                toastUtil.showToast(getContext(),"Permission denied");
             }
         }
     }
@@ -201,19 +201,19 @@ public class LectureFragment extends Fragment {
             saveBitmapAsPNG(thumbnail, pngFile);
 
             String absolutePath = pngFile.getAbsolutePath();
-            Log.d("缩略图绝对路径", absolutePath);
+            Log.d("absPath", absolutePath);
 
 
             // upload thumbnail to firebase storage
             FireBaseUtil.uploadPDFThumbnailsToFirebase(userId, absolutePath, new FireBaseUtil.FirebaseUploadCallback() {
                 @Override
                 public void onSuccess(String downloadUrl) {
-                    Log.d("fireStore", "缩略图上传成功");
+                    Log.d("fireStore", "Thumbnail uploaded successfully");
                 }
 
                 @Override
                 public void onFailure(Exception exception) {
-                    Log.d("fireStore", "缩略图上传失败");
+                    Log.d("fireStore", "Failed to upload thumbnail");
                 }
             });
 

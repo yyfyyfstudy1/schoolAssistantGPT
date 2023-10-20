@@ -19,7 +19,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/custom_button2_background"
-        android:text="Ask based on your PDF"
+        android:text="Ask about the PDF"
         android:textColor="@color/lightwhite" />
 
 

@@ -16,7 +16,8 @@
             app:eventsEnabled="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:highlightedDaysLabelsColor="@color/primaryMild"
+            app:highlightedDaysLabelsColor="@color/primary"
+            app:todayLabelColor="@color/secondary"
             app:selectionColor="@color/black"
             app:headerColor="@color/black"/>
 
