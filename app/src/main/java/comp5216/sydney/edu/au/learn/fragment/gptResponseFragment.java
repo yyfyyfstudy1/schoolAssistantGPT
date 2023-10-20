@@ -88,7 +88,7 @@ public class gptResponseFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        toastUtil.topSnackBar(view, "You can shake with refresh the Email ! ");
+        toastUtil.topSnackBar(view, "Shake to generate a new message! ");
 
         // get parameter
         Bundle args = getArguments();
@@ -182,7 +182,7 @@ public class gptResponseFragment extends Fragment {
 
         if (requestCode == 10 && resultCode == RESULT_OK && data != null) {
             ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-            // 输出或显示转换的文字
+            // display converted text
             myEditText.setText(result.get(0));
         }
     }
@@ -214,8 +214,8 @@ public class gptResponseFragment extends Fragment {
 
         requestText.append("]. ");
 
-        requestText.append("Help me fix the email content according to my under requirement." +
-                "In order to preserve the formatting of the email, strictly return an Markdown style reply. Don`t say other things, I only need the fixed content of the email. ");
+        requestText.append("Help me fix the email content according to my following requirement." +
+                "In order to preserve the formatting of the email, strictly return an Markdown style reply. Don't say other things, I only need the fixed content of the email. ");
 
         requestText.append(fixText);
 
@@ -251,7 +251,7 @@ public class gptResponseFragment extends Fragment {
         if (isMessage){
             requestText.append("Please help me edit a message based on the following content.strictly return an Markdown style reply");
         }else {
-            requestText.append("Convert the following request into a well-formatted email. In order to preserve the formatting of the email, strictly return an Markdown style reply, Don`t say other things,  I only need the content of the email.");
+            requestText.append("Convert the following request into a well-formatted email. In order to preserve the formatting of the email, strictly return an Markdown style reply, Don't say other things,  I only need the content of the email.");
         }
 
         if (userPreferenceChoose!=null){

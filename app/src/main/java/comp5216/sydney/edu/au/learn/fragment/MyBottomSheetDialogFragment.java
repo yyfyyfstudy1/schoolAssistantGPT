@@ -86,12 +86,12 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
                         params.height = convertDpToPx(fixHeight + 340);
                         isExpanded = true;
                     }else {
-                        // 恢复到初始高度
+                        // back to initial height
                         params.height =convertDpToPx(fixHeight);
                         isExpanded = false;
                     }
 
-                    // 应用新的高度
+                    // apply new height value
                     bottomSheet.setLayoutParams(params);
 
                 }
@@ -107,7 +107,7 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
         }
 
 
-        // 获取传递的参数
+        // get arguments
         Bundle args = getArguments();
         if (args != null) {
             userId = args.getString("userId");
@@ -117,11 +117,11 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
 
 
         chatRecyclerView = view.findViewById(R.id.chatRecyclerView);
-        // 创建并设置RecyclerView的LayoutManager
+        // create LayoutManager for RecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         chatRecyclerView.setLayoutManager(layoutManager);
 
-        // 创建并设置RecyclerView的Adapter
+        // create Adapter for RecyclerView
         chatAdapter = new ChatAdapter(getContext(),new ArrayList<Message>());
         chatRecyclerView.setAdapter(chatAdapter);
 
@@ -167,7 +167,6 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
 
             @Override
             public void onFailure(Exception e) {
-                // 处理错误或通知用户
                 Log.e("CHAT_DATA", "Failed to retrieve data.", e);
             }
         });
@@ -190,7 +189,7 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
                     BottomSheetBehavior<FrameLayout> behavior = BottomSheetBehavior.from(bottomSheet);
                     behavior.setState(BottomSheetBehavior.STATE_HALF_EXPANDED);
 
-                    // 设置固定高度
+                    // fixed height
                     int desiredHeight = convertDpToPx(fixHeight);
 
                     bottomSheet.getLayoutParams().height = desiredHeight;
@@ -217,13 +216,12 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
             // set send message
             Message newSentMessage = new Message(userQuestion, Message.MessageType.SENT);
             chatAdapter.addMessage(newSentMessage);
-            chatRecyclerView.smoothScrollToPosition(chatAdapter.getItemCount() - 1); // 滚动到最新的消息
-
+            chatRecyclerView.smoothScrollToPosition(chatAdapter.getItemCount() - 1); // scroll to latest msg
 
             // set received message
             Message PreviewMessage = new Message("I'm editing the answer, please wait...", Message.MessageType.PREVIEW);
             chatAdapter.addMessage(PreviewMessage);
-            chatRecyclerView.smoothScrollToPosition(chatAdapter.getItemCount() - 1); // 滚动到最新的消息
+            chatRecyclerView.smoothScrollToPosition(chatAdapter.getItemCount() - 1); // scroll to latest
 
 
 

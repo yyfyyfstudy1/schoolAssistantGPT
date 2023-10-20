@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,6 +35,8 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import comp5216.sydney.edu.au.learn.LoginActivity;
+import comp5216.sydney.edu.au.learn.MainActivity;
 import comp5216.sydney.edu.au.learn.R;
 import comp5216.sydney.edu.au.learn.util.FireBaseUtil;
 import comp5216.sydney.edu.au.learn.util.NetworkUtils;
@@ -77,7 +80,7 @@ public class LectureResponseFragment extends Fragment {
 //        // bind the component
 //        gptResponseWebView = view.findViewById(R.id.gptResponseWebView);
         GetHistoryBtn = view.findViewById(R.id.GetHistoryBtn);
-        GetHistoryBtn.setText("The pdf content is being analyzed. . .");
+        GetHistoryBtn.setText("Analysing content, please wait...");
         GetHistoryBtn.setEnabled(false);
         // get parameter
         Bundle args = getArguments();
@@ -97,7 +100,7 @@ public class LectureResponseFragment extends Fragment {
 
                     @Override
                     public void onFailure(Exception exception) {
-                        Log.d("pdf Load faild", String.valueOf(exception));
+                        Log.d("pdf Load failed", String.valueOf(exception));
                     }
                 });
 
@@ -220,7 +223,7 @@ public class LectureResponseFragment extends Fragment {
 
     private void callGptForResponse(String inputText){
         StringBuilder requestText = new StringBuilder();
-        requestText.append("The following content is part of the pdf file. You need to summarize its main knowledge points. Since it is the content of pdf translation, the text is relatively fragmented. Please combine some of the content. ");
+        requestText.append("The following content is part of the pdf file. You need to summarise its main knowledge points. Since it is the content of pdf translation, the text is relatively fragmented. Please combine some of the content. ");
         requestText.append(inputText);
         String requestBody = "{\"messages\": [{\"role\": \"system\", \"content\": \"You are a helpful assistant.\"}, {\"role\": \"system\", \"content\": \"[clear context]\"}, {\"role\": \"user\", \"content\": \"" + requestText + "\"}], \"model\": \"gpt-3.5-turbo\"}";
 
@@ -265,10 +268,10 @@ public class LectureResponseFragment extends Fragment {
 
 
     private void handleResults() {
-        // 在这里处理 results 列表中的结果
+        // handle results
        // showLoading(false);
         GetHistoryBtn.setEnabled(true);
-        GetHistoryBtn.setText("Ask question based on your pdf !");
+        GetHistoryBtn.setText("Ask question based on your pdf now!");
         GetHistoryBtn.setBackgroundResource(R.drawable.custom_buttonsuccessful_background);
         if (isFromHistory){
         }else {

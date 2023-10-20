@@ -62,14 +62,15 @@
 
             <ImageButton
                 android:id="@+id/audioButton"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="8dp"
                 android:layout_gravity="bottom|end"
                 android:padding="16dp"
-                android:background="@drawable/audio"
-               />
+                android:background="@drawable/baseline_keyboard_voice_32"
+                />
+
         </FrameLayout>
 
 
@@ -105,7 +106,7 @@
                         android:paddingLeft="12dp"
                         android:paddingTop="16dp"
                         android:paddingBottom="16dp"
-                        android:text="preference"
+                        android:text="Preference"
                         android:textSize="20sp" />
                 </com.google.android.material.card.MaterialCardView>
 
@@ -125,7 +126,7 @@
                     android:focusable="true"
                     android:onClick="toggleLayout2"
                     app:cardCornerRadius="0dp">
-                    <!-- CardView的内容 -->
+                    <!-- CardView content -->
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

@@ -77,9 +77,9 @@ public class TimeTableResponseFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        toastUtil.topSnackBar(view, "Shake your phone to get your next week`s plan ! ");
+        toastUtil.topSnackBar(view, "Shake your phone to get your next week's plan!");
         // bind the component
-        initialText = "give me my this week`s plan";
+        initialText = "give me my this week's plan";
 
         gptResponseWebView = view.findViewById(R.id.gptResponseWebView);
         senToGptBtn = view.findViewById(R.id.senToGptBtn);
@@ -155,7 +155,7 @@ public class TimeTableResponseFragment extends Fragment {
 
         if (requestCode == 10 && resultCode == RESULT_OK && data != null) {
             ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-            // 输出或显示转换的文字
+            // display converted text
             myEditText.setText(result.get(0));
         }
     }
