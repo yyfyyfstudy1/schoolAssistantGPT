@@ -80,10 +80,9 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void toRegisterClick(View view){
         startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-        // TODO: StartActivityForResult? so that user can switch back to log in page
     }
 
-    // TODO: forgotPasswordClick
+    //TODO: forgotPasswordClick
 
     private void onClick(View view){
        String userNameUse = userName.getText().toString();
@@ -130,23 +129,13 @@ public class LoginActivity extends AppCompatActivity {
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-
-                                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                                builder.setTitle("Login failed")
-                                        .setMessage("Wrong password or account number")
-                                        .setPositiveButton("confirm", (dialogInterface, i) -> {
-
-                                        });
-
-                                builder.create().show();
-
+                                Toast.makeText(LoginActivity.this, "Wrong account or password", Toast.LENGTH_SHORT).show();
                             }
                         });
             }else {
-                password.setError("password can't be null");
+                password.setError("Password can't be null");
             }
         } else if (userNameUse.isEmpty()) {
-//            startActivity(new Intent(LoginActivity.this, MainActivity.class));
             userName.setError("Email can't be empty");
         }else {
             userName.setError("Email is not valid");

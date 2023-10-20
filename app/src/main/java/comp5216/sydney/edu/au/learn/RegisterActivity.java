@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,6 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
     public TextInputEditText passwordConfirm;
 
     private Button registerBtn;
+    private Button loginBtn;
 
     private FirebaseAuth mAuth;
 
@@ -42,10 +44,16 @@ public class RegisterActivity extends AppCompatActivity {
         password = findViewById(R.id.etPassword);
         passwordConfirm = findViewById(R.id.repeatPassword);
         registerBtn = findViewById(R.id.registerBtn);
-
+        loginBtn = findViewById(R.id.loginBtn);
         registerBtn.setOnClickListener(this::registerClick);
         mAuth = FirebaseAuth.getInstance();
+        loginBtn.setOnClickListener(this::toLoginClick);
 
+    }
+
+    private void toLoginClick(View view){
+        // finish current activity so user can switch back to log in page
+        finish();
     }
 
     // validate all fields on clicking register btn
@@ -138,7 +146,7 @@ public class RegisterActivity extends AppCompatActivity {
                             builder.setTitle("Account Created Successfully!")
                                     .setMessage("A verification email has been sent. Please verify before login.")
                                     .setPositiveButton("OK", (dialogInterface, i) -> {
-
+                                        finish();
                                     });
 
                             builder.create().show();
