@@ -52,8 +52,8 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void toLoginClick(View view){
-        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-        // TODO: StartActivityForResult? so that user can switch back to log in page
+        // finish current activity so user can switch back to log in page
+        finish();
     }
 
     // validate all fields on clicking register btn
@@ -146,7 +146,7 @@ public class RegisterActivity extends AppCompatActivity {
                             builder.setTitle("Account Created Successfully!")
                                     .setMessage("A verification email has been sent. Please verify before login.")
                                     .setPositiveButton("OK", (dialogInterface, i) -> {
-
+                                        finish();
                                     });
 
                             builder.create().show();
