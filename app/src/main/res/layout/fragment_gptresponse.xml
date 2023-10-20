@@ -12,7 +12,7 @@
         android:layout_weight="1"
         android:padding="10dp">
 
-        <WebView
+        <TextView
             android:id="@+id/gptResponseWebView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
@@ -41,6 +41,19 @@
                 android:layout_marginTop="10dp" />
 
         </LinearLayout>
+
+
+        <ImageButton
+            android:id="@+id/audioButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_gravity="bottom|end"
+            android:padding="16dp"
+            android:background="@drawable/audio"
+            />
+
     </FrameLayout>
     <!-- 外层的 LinearLayout -->
     <LinearLayout
@@ -79,6 +92,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp">
 
         <EditText

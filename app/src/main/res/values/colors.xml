@@ -34,6 +34,7 @@
     <color name="generalGreen">#008005</color>
     <color name="darkGreen">#437D28</color>
     <color name="borderGray">#D6D6D6</color>
+    <color name="lightGray">#ECECEC</color>
     <color name="lightwhite">#F2FEED</color>
     <color name="withoutSelect">#B9C1D9</color>
     <color name="popWindowsBackground">#FFFFFF</color>
