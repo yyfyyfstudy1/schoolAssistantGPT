@@ -11,7 +11,7 @@
         android:layout_weight="1.5"
         android:padding="10dp">
 
-        <WebView
+        <TextView
             android:id="@+id/gptResponseWebView"
             android:layout_width="match_parent"
             android:layout_height="500dp" />
@@ -42,6 +42,17 @@
                 android:layout_marginTop="10dp" />
 
         </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/audioButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_gravity="bottom|end"
+            android:padding="16dp"
+            android:background="@drawable/audio"
+            />
     </FrameLayout>
 
     <!--  chat box  -->
