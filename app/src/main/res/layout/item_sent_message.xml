@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:gravity="end">
+        android:gravity="end|top"> <!-- 这里增加了 top 对齐 -->
 
         <TextView
             android:id="@+id/tvMessage"
@@ -15,8 +15,19 @@
             android:layout_height="wrap_content"
             android:background="@drawable/chat_bubble2"
             android:textColor="#FFFFFF"
-            android:maxWidth="200dp"
-            android:padding="8dp"/>
+            android:maxWidth="280dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="6dp"
+            android:textSize="18sp"
+            android:text="xxxxxxxxxasdasdasdasdasxx"
+            android:lineSpacingExtra="2dp"
+            android:padding="7dp"/>
+
+        <ImageView
+            android:id="@+id/userAvatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/avatar3" />
     </LinearLayout>
 
 

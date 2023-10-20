@@ -21,6 +21,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.canvas.parser.PdfTextExtractor;
+
+import org.apache.commons.io.FilenameUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -133,7 +136,9 @@ public class LectureResponseFragment extends Fragment {
 
         // from general
         if (pdfFilePath !=null){
-            args.putString("pdfFilePath", pdfFilePath);
+            String fileName = new File(pdfFilePath).getName();
+            String baseName = FilenameUtils.getBaseName(fileName);
+            args.putString("pdfName", baseName);
         }
 
         // from history
@@ -143,6 +148,7 @@ public class LectureResponseFragment extends Fragment {
 
         args.putString("userId", userId);
         args.putString("pdfContentSummary", contextText.toString());
+
         bottomSheet.setArguments(args);
         bottomSheet.show(getParentFragmentManager(), bottomSheet.getTag());
 
@@ -271,87 +277,6 @@ public class LectureResponseFragment extends Fragment {
 
     }
 
-//    //  call gpt again, to get the question based on the analyse result
-//    private void callGptForQuestion(){
-//        StringBuilder requestText = new StringBuilder();
-//        requestText.append("The following content is the summary of PDF [");
-//
-//        for (String ss : results){
-//            // Remove newlines and special characters
-//            String cleanText = ss.replaceAll("[^a-zA-Z0-9\\s]|[\r\n]+", " ");
-//            requestText.append(cleanText);
-//        }
-//
-//        requestText.append("]. now, give me three question based on the content, " +
-//                "In order to preserve the formatting of the content, strictly reply the three question with jsonArray style (for example: ['question1', 'question2'] )." +
-//                "i only need the question, don`t response any other content like answer of the question.");
-//        String requestBody = "{\"messages\": [{\"role\": \"system\", \"content\": \"You are a helpful assistant.\"}, {\"role\": \"system\", \"content\": \"[clear context]\"}, {\"role\": \"user\", \"content\": \"" + requestText + "\"}], \"model\": \"gpt-3.5-turbo\"}";
-//
-//
-//        NetworkUtils.postJsonRequest(requestBody, new Callback() {
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//                handleResponseQuestion(response);
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//                handleFailure(e);
-//            }
-//        });
-//    }
-//    /*
-//    * handle the response of gpt
-//    * */
-//    private void handleResponseQuestion(Response response) throws IOException {
-//        showLoading(false);
-//        String responseBody = response.body().string();
-//
-//        if (response.code() == 200) {
-//
-//            JSONObject jsonObject = JSONObject.parseObject(responseBody);
-//            JSONObject firstChoice = jsonObject.getJSONArray("choices").getJSONObject(0);
-//            JSONObject message = firstChoice.getJSONObject("message");
-//            String content = message.getString("content");
-//
-//            // Replace escape characters
-//            String jsonString = content.replace("\\n", "\n").replace("\\\"", "\"");
-//            Log.e(TAG, "response: " + jsonString);
-//
-//            // Use fastjson to parse this JSON array
-//            JSONArray jsonArray = JSONArray.parseArray(jsonString);
-//
-//            // create a list to store the question
-//            List<String> questionsList = new ArrayList<>();
-//
-//            // Loop through the JSONArray and add each string to the List
-//            for (int i = 0; i < jsonArray.size(); i++) {
-//                questionsList.add(jsonArray.getString(i));
-//            }
-//
-//
-//            StringBuilder finalQuestionHtml = new StringBuilder();
-//            finalQuestionHtml.append("<h3>example question </h3>");
-//            for (String vv : questionsList){
-//                finalQuestionHtml.append("<span style=\"color:gray\">").append(vv).append("</span>").append("<br><br>");
-//            }
-//
-//            // use getActivity() to get Activity
-//            if(getActivity() != null) {
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        // run this in the main tread
-//                        gptResponseWebView.loadData(finalQuestionHtml.toString(), "text/html", "UTF-8");
-//
-//                    }
-//                });
-//            }
-//        } else {
-//
-//        }
-//    }
 
     private void handleFailure(IOException e) {
         Log.e(TAG, "Exception: " + e);

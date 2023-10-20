@@ -2,7 +2,7 @@ package comp5216.sydney.edu.au.learn.Common;
 
 public class Message {
     public enum MessageType {
-        SENT, RECEIVED
+        SENT, RECEIVED, PREVIEW
     }
 
     String content;
