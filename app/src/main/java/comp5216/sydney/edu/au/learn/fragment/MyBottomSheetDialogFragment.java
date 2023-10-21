@@ -234,7 +234,9 @@ public class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
 
             requestText.append("]. ");
 
-            requestText.append(" Using all this information as your knowledge source, I want you to answer the following question: ");
+            requestText.append(" Use the  provided information above as your knowledge source. " +
+                    "If there is no explicit answer in the provided source, state that, then you may use general knowledge or reference any other suitable source to answer the question, but you need to explicitly state which part of the answer is based on external source." +
+                    "I want you to answer the following question: ");
 
             requestText.append(userQuestion);
             requestText.append(". In order to preserve the formatting of your answer, strictly return an Markdown style reply.");
