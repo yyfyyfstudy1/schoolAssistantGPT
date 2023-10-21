@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.FirebaseNetworkException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -129,7 +130,13 @@ public class LoginActivity extends AppCompatActivity {
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(LoginActivity.this, "Wrong account or password", Toast.LENGTH_SHORT).show();
+                                // Network not connected
+                                if (e instanceof FirebaseNetworkException) {
+                                    Toast.makeText(LoginActivity.this, "Network not connected. Please check network connection and try again.", Toast.LENGTH_SHORT).show();
+                                }
+                                else { // wrong acc or password
+                                    Toast.makeText(LoginActivity.this, "Wrong account or password", Toast.LENGTH_SHORT).show();
+                                }
                             }
                         });
             }else {
