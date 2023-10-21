@@ -1,9 +1,6 @@
 package comp5216.sydney.edu.au.learn.fragment;
 
-import static android.content.ContentValues.TAG;
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import comp5216.sydney.edu.au.learn.BottomNavigationListener;
-import comp5216.sydney.edu.au.learn.MainActivity;
 import comp5216.sydney.edu.au.learn.R;
 
 import com.google.android.material.card.MaterialCardView;
@@ -69,38 +65,9 @@ public class HomeFragment extends Fragment {
             userId = arguments.getString("userId");
         }
 
-        // Find your MaterialCardViews
-        MaterialCardView slideButton = view.findViewById(R.id.slide_button);
-        MaterialCardView generateEmailButton = view.findViewById(R.id.generate_email_button);
-        MaterialCardView calendarButton = view.findViewById(R.id.calendar_button);
 
         if (username != null) {
             greetingTextView.setText(username);
-            // Set click listeners for the MaterialCardViews
-            slideButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Replace the current fragment with the SlideFragment
-                    Log.d("MyTag", "Reached here");
-                    loadFragment(new LectureFragment(), userId);
-                }
-            });
-            generateEmailButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Replace the current fragment with the SlideFragment
-                    Log.d("MyTag", "Reached here");
-                    loadFragment(new EmailFragment(), userId);
-                }
-            });
-            calendarButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Replace the current fragment with the SlideFragment
-                    Log.d("MyTag", "Reached here");
-                    loadFragment(new TimeTableFragment(), userId);
-                }
-            });
 
         }
 

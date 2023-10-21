@@ -34,6 +34,8 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputEditText userName;
     private TextInputEditText password;
     private FirebaseAuth auth;
+
+    private Button btnForgotPassword;
 //    private LinearLayout login_container;
 
     private View imageView;
@@ -48,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
 //        login_container = findViewById(R.id.buttonView);
         loginBtn = findViewById(R.id.btnLogin);
         registerBtn = findViewById(R.id.btnRegister);
+        btnForgotPassword = findViewById(R.id.btnForgotPassword);
         // initial page，hidden form
 //        login_container.setVisibility(View.GONE);
 
@@ -62,6 +65,12 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(this::onClick);
 
         registerBtn.setOnClickListener(this::toRegisterClick);
+
+        btnForgotPassword.setOnClickListener(this::toForgetPassword);
+    }
+
+    private void toForgetPassword(View view) {
+        startActivity(new Intent(LoginActivity.this, ForgetPasswordActivity.class));
     }
 
     private void fadeInLogo() {
