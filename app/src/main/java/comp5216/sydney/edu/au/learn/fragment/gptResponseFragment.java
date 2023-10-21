@@ -4,7 +4,12 @@ import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
 import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.util.Log;
@@ -27,6 +32,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.alibaba.fastjson.JSONObject;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.jsoup.Jsoup;
 
@@ -75,12 +82,18 @@ public class gptResponseFragment extends Fragment {
 
     private String fixText;
 
+    private MaterialButton copyBtn;
+
+    private MaterialButton shareBtn;
+
+    private View rootView;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_gptresponse, container, false);
-        return view;
+        rootView = inflater.inflate(R.layout.fragment_gptresponse, container, false);
+        return rootView;
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -100,6 +113,8 @@ public class gptResponseFragment extends Fragment {
         progressBar = view.findViewById(R.id.progressBar);
         loadingText = view.findViewById(R.id.loadingText);
         audioButton = view.findViewById(R.id.audioButton);
+        copyBtn = view.findViewById(R.id.copyBtn);
+        shareBtn = view.findViewById(R.id.shareBtn);
         // before get the gpt first response, the button can`t click
         senToGptBtn.setEnabled(false);
 
@@ -132,6 +147,8 @@ public class gptResponseFragment extends Fragment {
 
         senToGptBtn.setOnClickListener(this::fixContentWithGpt);
         audioButton.setOnClickListener(this::convertSpeechToText);
+        copyBtn.setOnClickListener(this::copyText);
+        shareBtn.setOnClickListener(this::shareEmail);
 
         shakeDetector = new ShakeDetector(getContext(), new ShakeListener() {
             @Override
@@ -150,6 +167,39 @@ public class gptResponseFragment extends Fragment {
         });
 
     }
+
+    private void shareEmail(View view) {
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+        emailIntent.setData(Uri.parse("mailto:"));  // only email apps should handle this
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {"recipient@example.com"});
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Email Subject");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, gptResponseWebView.getText().toString());
+
+        try {
+            startActivity(emailIntent);
+        } catch (ActivityNotFoundException e) {
+            Snackbar.make(rootView, "No email client available", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }
+
+    }
+
+
+    // copy Email to clipboard
+    private void copyText(View view) {
+        String textToCopy = gptResponseWebView.getText().toString();
+        copyToClipboard(getContext(), textToCopy);
+        // Handle success
+        Snackbar.make(rootView, "Copy Email successful", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
+
+    private void copyToClipboard(Context context, String text) {
+        ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("Copied Email", text);
+        clipboard.setPrimaryClip(clip);
+    }
+
 
     @Override
     public void onResume() {
