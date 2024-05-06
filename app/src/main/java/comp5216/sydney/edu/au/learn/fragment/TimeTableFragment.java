@@ -102,6 +102,7 @@ public class TimeTableFragment extends Fragment{
                 transaction.replace(R.id.fl_container, timeTableResponseFragment);
                 // Add FragmentA to the back stack so the user can return to it
                 transaction.addToBackStack(null);
+                // Allowing State Loss
                 transaction.commitAllowingStateLoss();
             }
         });
