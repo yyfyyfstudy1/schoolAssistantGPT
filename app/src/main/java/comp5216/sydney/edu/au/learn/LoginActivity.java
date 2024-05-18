@@ -114,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
                                     if (user.isEmailVerified()) { // Check if the email is verified
                                         toastUtil.showToast(LoginActivity.this, ok);
 
-                                        // get the user information UID
+                                        // get the user  UID
                                         String uid = user.getUid();
 
                                         // get SharedPreferences instance
