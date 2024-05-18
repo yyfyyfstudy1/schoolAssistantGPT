@@ -51,8 +51,6 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn = findViewById(R.id.btnLogin);
         registerBtn = findViewById(R.id.btnRegister);
         btnForgotPassword = findViewById(R.id.btnForgotPassword);
-        // initial page，hidden form
-//        login_container.setVisibility(View.GONE);
 
         loginBtn.setVisibility(View.GONE);
         registerBtn.setVisibility(View.GONE);
